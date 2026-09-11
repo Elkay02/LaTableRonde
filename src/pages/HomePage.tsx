@@ -1,0 +1,217 @@
+import logoTransparent from "@/imports/La_Table_Ronde_logo_transparent.png"
+import { IMG } from "@/data/images"
+import ServicePillars from "@/components/sections/ServicePillars"
+import GoldDivider from "@/components/ui/GoldDivider"
+import type { NavigationProps } from "@/types/navigation"
+
+export default function HomePage({ onNav }: NavigationProps) {
+  return (
+    <div>
+      <div
+        className="relative flex flex-col overflow-hidden"
+        style={{ minHeight: "100vh", background: "#111" }}
+      >
+        <img
+          src={IMG.hero}
+          alt="Elegant banquet table setting"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.45 }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.72))",
+          }}
+        />
+
+        <div style={{ height: "calc(64px + 6vh)", flexShrink: 0 }} />
+
+        <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto w-full">
+          <div className="mb-8">
+            <img
+              src={logoTransparent}
+              alt="La Table Ronde"
+              style={{
+                width: 130,
+                height: 130,
+                objectFit: "contain",
+                display: "block",
+                margin: "0 auto",
+              }}
+            />
+          </div>
+          <h1
+            className="font-display tracking-[0.15em] uppercase mb-6"
+            style={{
+              color: "var(--gold)",
+              lineHeight: 1.05,
+              fontSize: "clamp(2.8rem, 7vw, 6rem)",
+            }}
+          >
+            La Table
+            <br />
+            Ronde
+          </h1>
+          <p
+            className="font-body mb-12 mx-auto"
+            style={{
+              color: "rgba(255,255,255,0.72)",
+              lineHeight: 1.8,
+              fontSize: "clamp(1rem, 2vw, 1.25rem)",
+              maxWidth: 560,
+            }}
+          >
+            Full end-to-end catering excellence,
+            <br />
+            brought to life through authentic live stations.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <button
+              onClick={() => onNav("contact")}
+              className="font-display tracking-[0.28em] uppercase px-12 py-4 transition-all duration-300 hover:opacity-90"
+              style={{
+                background: "var(--gold)",
+                color: "var(--ink)",
+                fontSize: "0.7rem",
+                minWidth: 200,
+              }}
+            >
+              Book an Event
+            </button>
+            <button
+              onClick={() => onNav("services")}
+              className="font-display tracking-[0.28em] uppercase px-12 py-4 transition-all duration-300 hover:bg-white/10"
+              style={{
+                border: "1px solid rgba(255,255,255,0.45)",
+                color: "rgba(255,255,255,0.9)",
+                fontSize: "0.7rem",
+                minWidth: 200,
+              }}
+            >
+              Our Services
+            </button>
+          </div>
+        </div>
+
+        <div className="relative flex flex-col items-center pb-10 pt-8 flex-shrink-0">
+          <div
+            className="w-px h-10 overflow-hidden"
+            style={{ background: "rgba(255,255,255,0.15)" }}
+          >
+            <div
+              className="w-full h-1/2"
+              style={{
+                background: "var(--gold)",
+                animation: "slideDown 1.5s ease-in-out infinite",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Philosophy */}
+      <div
+        className="py-24 px-8 lg:px-16"
+        style={{ background: "var(--cream)" }}
+      >
+        <div className="max-w-4xl mx-auto text-center">
+          <p
+            className="font-display tracking-[0.4em] uppercase mb-4"
+            style={{
+              color: "var(--gold)",
+              fontSize: "0.8rem",
+              fontWeight: 600,
+            }}
+          >
+            Our Philosophy
+          </p>
+          <h2
+            className="font-heading mb-6"
+            style={{
+              color: "var(--ink)",
+              fontWeight: 400,
+              lineHeight: 1.35,
+              fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
+            }}
+          >
+            Where Culinary Craft
+            <br />
+            Meets Lebanese Hospitality
+          </h2>
+          <GoldDivider />
+          <p
+            className="font-body leading-loose mt-6 mx-auto"
+            style={{
+              color: "var(--charcoal)",
+              maxWidth: 640,
+              fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)",
+            }}
+          >
+            At La Table Ronde, every event is a curated experience. From
+            intimate gatherings to grand celebrations, we bring the warmth of
+            Lebanese tradition and the theatre of live cooking to your table,
+            crafted with precision, served with grace.
+          </p>
+        </div>
+      </div>
+
+      {/* Two pillars */}
+      <ServicePillars cardClassName="px-10 lg:px-16 py-14 flex flex-col" />
+
+      {/* Gallery strip */}
+      <div
+        className="grid grid-cols-2 md:grid-cols-4 gap-0"
+        style={{ height: 340 }}
+      >
+        {[IMG.grill, IMG.finedining, IMG.cooking, IMG.feast].map((src, i) => (
+          <div
+            key={i}
+            className="relative overflow-hidden"
+            style={{ background: "#1a1a1a" }}
+          >
+            <img
+              src={src}
+              alt="Catering event"
+              className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+              style={{ opacity: 0.8 }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Gold CTA */}
+      <div
+        className="py-20 px-8 text-center"
+        style={{ background: "var(--gold)" }}
+      >
+        <p
+          className="font-display tracking-[0.4em] uppercase mb-3"
+          style={{ color: "var(--ink)", fontSize: "0.8rem", fontWeight: 700 }}
+        >
+          Ready to Host?
+        </p>
+        <h2
+          className="font-display tracking-[0.08em] uppercase mb-6"
+          style={{
+            color: "var(--ink)",
+            fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+          }}
+        >
+          Plan Your Next Event With Us
+        </h2>
+        <button
+          onClick={() => onNav("contact")}
+          className="font-display tracking-[0.28em] uppercase px-12 py-4 transition-all duration-300 hover:opacity-80"
+          style={{
+            background: "var(--ink)",
+            color: "var(--gold)",
+            fontSize: "0.7rem",
+          }}
+        >
+          Get in Touch
+        </button>
+      </div>
+    </div>
+  )
+}

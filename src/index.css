@@ -50,3 +50,35 @@ body {
   --color-muted: var(--muted);
   --color-border: var(--border);
 }
+
+@keyframes slideDown {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+.gallery-arrow {
+  transition: opacity 0.2s, transform 0.2s;
+  opacity: 0.75;
+}
+
+.gallery-arrow:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.gallery-arrow:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 4px;
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .gallery-arrow {
+    position: absolute !important;
+    background: rgba(0,0,0,0.4) !important;
+    padding: 8px !important;
+    border-radius: 4px !important;
+    opacity: 0.85 !important;
+  }
+}
