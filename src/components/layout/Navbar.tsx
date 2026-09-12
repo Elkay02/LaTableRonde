@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, type CSSProperties } from "react"
 import logoTransparent from "@/imports/La_Table_Ronde_logo_transparent.png"
 import { NAVIGATION_LINKS } from "@/data/navigation"
 import type { Page, NavigationProps } from "@/types/navigation"
@@ -50,13 +50,18 @@ export default function Navbar({
             <button
               key={l.page}
               onClick={() => onNav(l.page)}
-              className="font-display tracking-[0.18em] uppercase transition-colors duration-200 relative pb-1"
-              style={{
-                color:
-                  current === l.page ? "var(--gold)" : "rgba(255,255,255,0.8)",
-                fontSize: "0.63rem",
-                whiteSpace: "nowrap",
-              }}
+              className="navigation-link font-display tracking-[0.18em] uppercase relative pb-1"
+              aria-current={current === l.page ? "page" : undefined}
+              style={
+                {
+                  "--navigation-color":
+                    current === l.page
+                      ? "var(--gold)"
+                      : "rgba(255,255,255,0.8)",
+                  fontSize: "0.63rem",
+                  whiteSpace: "nowrap",
+                } as CSSProperties
+              }
             >
               {l.label}
               <span
@@ -72,7 +77,7 @@ export default function Navbar({
           ))}
         </div>
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
           onClick={() => setMenuOpen((o) => !o)}
         >
           {[0, 1, 2].map((i) => (
@@ -103,13 +108,18 @@ export default function Navbar({
                 onNav(l.page)
                 setMenuOpen(false)
               }}
-              className="block w-full text-left px-8 py-4 font-display tracking-[0.2em] uppercase border-b"
-              style={{
-                color:
-                  current === l.page ? "var(--gold)" : "rgba(255,255,255,0.7)",
-                borderColor: "rgba(249,193,10,0.1)",
-                fontSize: "0.65rem",
-              }}
+              className="navigation-link block w-full text-left px-8 py-4 font-display tracking-[0.2em] uppercase border-b"
+              aria-current={current === l.page ? "page" : undefined}
+              style={
+                {
+                  "--navigation-color":
+                    current === l.page
+                      ? "var(--gold)"
+                      : "rgba(255,255,255,0.7)",
+                  borderColor: "rgba(249,193,10,0.1)",
+                  fontSize: "0.65rem",
+                } as CSSProperties
+              }
             >
               {l.label}
             </button>

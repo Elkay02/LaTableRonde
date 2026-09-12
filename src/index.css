@@ -82,3 +82,93 @@ body {
     opacity: 0.85 !important;
   }
 }
+
+.navigation-link {
+  color: var(--navigation-color);
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+.navigation-link:hover,
+.navigation-link:focus-visible {
+  color: var(--gold);
+}
+
+.navigation-link[aria-current="page"]:hover,
+.navigation-link[aria-current="page"]:focus-visible {
+  color: #ffffff;
+}
+
+.action-button {
+  --action-fill: var(--gold);
+  --action-text: var(--ink);
+  --action-hover-fill: transparent;
+  --action-hover-text: var(--gold);
+  --action-border: transparent;
+  display: inline-block;
+  background: var(--action-fill);
+  color: var(--action-text);
+  box-shadow: inset 0 0 0 1px var(--action-border);
+  font-size: 0.7rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 300ms ease, color 300ms ease, box-shadow 300ms ease;
+}
+
+.action-button--dark {
+  --action-fill: var(--ink);
+  --action-text: var(--gold);
+  --action-hover-text: var(--ink);
+}
+
+.action-button--outline {
+  --action-fill: transparent;
+  --action-text: rgba(255,255,255,0.9);
+  --action-border: rgba(255,255,255,0.45);
+  --action-hover-fill: rgba(255,255,255,0.9);
+  --action-hover-text: var(--ink);
+  border: 1px solid var(--action-border);
+  box-shadow: none;
+}
+
+.action-button:not(:disabled):hover,
+.action-button:not(:disabled):focus-visible {
+  background: var(--action-hover-fill);
+  color: var(--action-hover-text);
+  box-shadow: inset 0 0 0 1px var(--action-hover-text);
+}
+
+.action-button--outline:not(:disabled):hover,
+.action-button--outline:not(:disabled):focus-visible {
+  border-color: var(--action-hover-fill);
+  box-shadow: none;
+}
+
+.action-button:focus-visible {
+  outline: 2px solid var(--action-hover-text);
+  outline-offset: 4px;
+}
+
+.action-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.value-card {
+  transition: transform 250ms ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .value-card:hover {
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action-button,
+  .navigation-link,
+  .value-card {
+    transition: none;
+  }
+}

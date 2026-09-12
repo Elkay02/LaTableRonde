@@ -4,15 +4,18 @@ import GoldDivider from "@/components/ui/GoldDivider"
 
 export default function TestimonialsCarousel() {
   const [current, setCurrent] = useState(0)
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const [paused, setPaused] = useState(false)
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [fade, setFade] = useState(true)
 
   const goTo = useCallback((i: number) => {
+    if (transitionTimerRef.current !== null) {
+      clearTimeout(transitionTimerRef.current)
+    }
     setFade(false)
-    setTimeout(() => {
+    transitionTimerRef.current = setTimeout(() => {
       setCurrent(i)
       setFade(true)
+      transitionTimerRef.current = null
     }, 260)
   }, [])
 
@@ -24,15 +27,19 @@ export default function TestimonialsCarousel() {
     goTo((current - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)
 
   useEffect(() => {
-    if (paused) {
-      if (timerRef.current) clearInterval(timerRef.current)
-      return
-    }
-    timerRef.current = setInterval(next, 12000)
+    const timer = setInterval(next, 6000)
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current)
+      clearInterval(timer)
     }
-  }, [paused, next])
+  }, [next])
+
+  useEffect(() => {
+    return () => {
+      if (transitionTimerRef.current !== null) {
+        clearTimeout(transitionTimerRef.current)
+      }
+    }
+  }, [])
 
   const t = TESTIMONIALS[current]
 
@@ -40,8 +47,6 @@ export default function TestimonialsCarousel() {
     <div
       className="py-20 px-8 lg:px-16"
       style={{ background: "#ffffff", borderTop: "1px solid var(--border)" }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
@@ -62,7 +67,7 @@ export default function TestimonialsCarousel() {
           <button
             onClick={prev}
             aria-label="Previous testimonial"
-            className="gallery-arrow flex-shrink-0"
+            className="gallery-arrow flex-shrink-0 max-md:left-0 max-md:z-10"
             style={{
               background: "none",
               border: "none",
@@ -145,7 +150,7 @@ export default function TestimonialsCarousel() {
           <button
             onClick={next}
             aria-label="Next testimonial"
-            className="gallery-arrow flex-shrink-0"
+            className="gallery-arrow flex-shrink-0 max-md:right-0 max-md:z-10"
             style={{
               background: "none",
               border: "none",

@@ -1,10 +1,12 @@
-import { useState } from "react"
+import ActionButton from "@/components/ui/ActionButton"
+import { useRef, useState, type FormEvent } from "react"
+import { INQUIRY_EMAIL, sendInquiry, type Inquiry } from "@/services/inquiries"
 import FormField from "./FormField"
 import FormInput from "./FormInput"
 import { FORM_CONTROL_PROPS, FORM_CONTROL_STYLE } from "./formControls"
 
 export default function InquiryForm() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<Inquiry>({
     name: "",
     email: "",
     phone: "",
@@ -14,17 +16,41 @@ export default function InquiryForm() {
     message: "",
   })
   const [sent, setSent] = useState(false)
+  const [isSending, setIsSending] = useState(false)
+  const [error, setError] = useState<"required" | "send" | null>(null)
+  const sendingRef = useRef(false)
   const today = new Date().toISOString().split("T")[0]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSent(true)
+    if (sendingRef.current) return
+    if (!form.name.trim() || !form.phone.trim() || !form.message.trim()) {
+      setError("required")
+      return
+    }
+
+    sendingRef.current = true
+    setIsSending(true)
+    setError(null)
+
+    try {
+      await sendInquiry(form)
+      setSent(true)
+    } catch {
+      setError("send")
+    } finally {
+      sendingRef.current = false
+      setIsSending(false)
+    }
   }
 
   return (
     <>
       {sent ? (
-        <div className="h-full flex flex-col items-center justify-center text-center py-16">
+        <div
+          role="status"
+          className="h-full flex flex-col items-center justify-center text-center py-16"
+        >
           <svg
             width="48"
             height="48"
@@ -60,16 +86,26 @@ export default function InquiryForm() {
           </p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+          aria-busy={isSending}
+        >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormInput
               label="Full Name *"
+              name="name"
+              autoComplete="name"
+              disabled={isSending}
               required
               value={form.name}
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
             />
             <FormInput
               label="Email Address *"
+              name="email"
+              autoComplete="email"
+              disabled={isSending}
               required
               type="email"
               value={form.email}
@@ -81,6 +117,9 @@ export default function InquiryForm() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormInput
               label="Phone / WhatsApp *"
+              name="phone"
+              autoComplete="tel"
+              disabled={isSending}
               required
               type="tel"
               value={form.phone}
@@ -90,6 +129,8 @@ export default function InquiryForm() {
             />
             <FormField label="Event Type">
               <select
+                name="event"
+                disabled={isSending}
                 {...FORM_CONTROL_PROPS}
                 style={{ ...FORM_CONTROL_STYLE, appearance: "none" }}
                 value={form.event}
@@ -109,6 +150,8 @@ export default function InquiryForm() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormInput
               label="Event Date"
+              name="date"
+              disabled={isSending}
               type="date"
               min={today}
               value={form.date}
@@ -116,6 +159,8 @@ export default function InquiryForm() {
             />
             <FormInput
               label="Number of Guests"
+              name="guests"
+              disabled={isSending}
               type="number"
               min="1"
               value={form.guests}
@@ -126,6 +171,8 @@ export default function InquiryForm() {
           </div>
           <FormField label="Message *">
             <textarea
+              name="message"
+              disabled={isSending}
               required
               rows={5}
               {...FORM_CONTROL_PROPS}
@@ -136,17 +183,34 @@ export default function InquiryForm() {
               }
             />
           </FormField>
-          <button
+          {error && (
+            <p
+              role="alert"
+              className="font-body text-sm"
+              style={{ color: "#b42318" }}
+            >
+              {error === "required" ? (
+                "Please complete all required fields."
+              ) : (
+                <>
+                  We couldn't send your inquiry. Please try again, or email us
+                  directly at{" "}
+                  <a href={`mailto:${INQUIRY_EMAIL}`} className="underline">
+                    {INQUIRY_EMAIL}
+                  </a>
+                  .
+                </>
+              )}
+            </p>
+          )}
+          <ActionButton
+            variant="gold"
             type="submit"
-            className="w-full font-display tracking-[0.28em] uppercase py-4 transition-all duration-300 hover:opacity-85"
-            style={{
-              background: "var(--gold)",
-              color: "var(--ink)",
-              fontSize: "0.7rem",
-            }}
+            className="w-full py-4"
+            disabled={isSending}
           >
-            Send Inquiry
-          </button>
+            {isSending ? "Sending..." : "Send Inquiry"}
+          </ActionButton>
         </form>
       )}
     </>

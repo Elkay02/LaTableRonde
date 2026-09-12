@@ -1,3 +1,4 @@
+import ActionButton from "@/components/ui/ActionButton"
 import { IMG } from "@/data/images"
 import { CONTACT } from "@/data/site"
 import PageBanner from "@/components/ui/PageBanner"
@@ -195,19 +196,17 @@ export default function ContactPage() {
             </p>
           </div>
           <div className="flex-shrink-0">
-            <a
+            <ActionButton
+              variant="gold"
               href={`mailto:${CONTACT.email}?subject=CV Submission — La Table Ronde`}
-              className="inline-block font-display tracking-[0.28em] uppercase px-10 py-4 transition-all duration-300 hover:opacity-85"
+              className="inline-block px-10 py-4"
               style={{
-                background: "var(--gold)",
-                color: "var(--ink)",
-                fontSize: "0.7rem",
                 textDecoration: "none",
                 whiteSpace: "nowrap",
               }}
             >
               Submit Your CV
-            </a>
+            </ActionButton>
           </div>
         </div>
       </div>

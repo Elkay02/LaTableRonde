@@ -127,7 +127,7 @@ export default function AboutPage() {
             ].map((v, i) => (
               <div
                 key={i}
-                className="p-7 flex flex-col items-start"
+                className="value-card p-7 flex flex-col items-start"
                 style={{
                   border: "1px solid var(--border)",
                   background: "var(--cream)",

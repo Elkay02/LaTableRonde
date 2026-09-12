@@ -4,6 +4,7 @@ import { NAVIGATION_LINKS } from "@/data/navigation"
 import InstagramLink from "@/components/ui/InstagramLink"
 import InstagramIcon from "@/components/icons/InstagramIcon"
 import type { NavigationProps } from "@/types/navigation"
+import type { CSSProperties } from "react"
 
 export default function Footer({ onNav }: NavigationProps) {
   return (
@@ -53,8 +54,12 @@ export default function Footer({ onNav }: NavigationProps) {
                 <button
                   key={page}
                   onClick={() => onNav(page)}
-                  className="block font-body text-sm transition-colors duration-200 hover:text-white"
-                  style={{ color: "rgba(255,255,255,0.45)" }}
+                  className="navigation-link block font-body text-sm"
+                  style={
+                    {
+                      "--navigation-color": "rgba(255,255,255,0.45)",
+                    } as CSSProperties
+                  }
                 >
                   {label}
                 </button>

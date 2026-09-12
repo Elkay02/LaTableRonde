@@ -1,3 +1,4 @@
+import ActionButton from "@/components/ui/ActionButton"
 import { IMG } from "@/data/images"
 import GoldDivider from "@/components/ui/GoldDivider"
 import PageBanner from "@/components/ui/PageBanner"
@@ -539,17 +540,13 @@ export default function ServicesPage({ onNav }: NavigationProps) {
         >
           Ready to plan your event?
         </p>
-        <button
+        <ActionButton
+          variant="gold"
           onClick={() => onNav("contact")}
-          className="font-display tracking-[0.28em] uppercase px-12 py-4 transition-all duration-300 hover:opacity-85"
-          style={{
-            background: "var(--gold)",
-            color: "var(--ink)",
-            fontSize: "0.7rem",
-          }}
+          className="px-12 py-4"
         >
           Request a Quote
-        </button>
+        </ActionButton>
       </div>
     </div>
   )

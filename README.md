@@ -10,7 +10,8 @@ React, Vite, and Tailwind CSS site for La Table Ronde.
 - `src/components/ui/` contains page banners, dividers, and Instagram links.
 - `src/components/sections/` contains the service pillars shared by Home and Services.
 - `src/components/carousels/` contains the gallery and testimonial carousels, including their interaction and timer logic.
-- `src/components/forms/` contains the inquiry form and reusable fields. Form state stays inside `InquiryForm`; submission displays the existing local confirmation.
+- `src/components/forms/` contains the inquiry form and reusable fields, including sending, success, and retry states.
+- `src/services/inquiries.ts` submits inquiries through FormSubmit and defines the recipient address.
 - `src/components/icons/` contains the original SVG icons.
 - `src/data/` contains shared navigation labels, contact details, image URLs, service descriptions, and testimonials.
 - `src/types/` contains shared navigation types.
@@ -30,3 +31,15 @@ pnpm build
 ```
 
 Figma Make provides its own running development server. Source edits appear in its preview automatically.
+
+## Contact form email delivery
+
+Inquiries are sent to `lucienkayrouz@gmail.com` using [FormSubmit's AJAX endpoint](https://formsubmit.co/ajax-documentation). All seven form fields are included, and Reply-To is set to the visitor's email address. No API key or backend server is needed.
+
+Before using the form publicly:
+
+1. Submit an inquiry from the running website.
+2. Open the FormSubmit activation email in `lucienkayrouz@gmail.com` (check spam too) and confirm the form.
+3. Submit another inquiry and confirm it reaches the inbox. Verify activation again when moving to your production domain.
+
+[FormSubmit requires activation](https://formsubmit.co/help) before forwarding inquiries. The UI confirms acceptance by the service; inbox delivery depends on activation and the email provider. Failed or timed-out requests keep the entered values so the visitor can retry. Development checks mock the endpoint and do not send email.
