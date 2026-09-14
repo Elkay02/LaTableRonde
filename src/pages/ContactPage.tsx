@@ -17,10 +17,10 @@ export default function ContactPage() {
       />
 
       <div
-        className="py-24 px-8 lg:px-16"
+        className="py-14 md:py-24 px-5 sm:px-8 lg:px-16"
         style={{ background: "var(--cream)" }}
       >
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-16">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-16">
           <div className="md:col-span-2 space-y-10">
             <div>
               <p
@@ -174,7 +174,7 @@ export default function ContactPage() {
 
       {/* Join Our Team — white background for contrast */}
       <div
-        className="px-8 lg:px-16 py-14"
+        className="px-5 sm:px-8 lg:px-16 py-10 md:py-14"
         style={{ background: "#ffffff", borderTop: "1px solid var(--border)" }}
       >
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
@@ -206,7 +206,7 @@ export default function ContactPage() {
             <ActionButton
               variant="gold"
               href={`mailto:${CONTACT.email}?subject=CV Submission — La Table Ronde`}
-              className="inline-block px-10 py-4"
+              className="inline-block px-5 sm:px-10 py-4"
               style={{
                 textDecoration: "none",
                 whiteSpace: "nowrap",

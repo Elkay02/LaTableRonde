@@ -15,7 +15,7 @@ export default function Footer({ onNav }: NavigationProps) {
         borderTop: "1px solid rgba(249,193,10,0.12)",
       }}
     >
-      <div className="w-full max-w-screen-xl mx-auto px-8 lg:px-16 py-14">
+      <div className="w-full max-w-screen-xl mx-auto px-5 sm:px-8 lg:px-16 py-10 md:py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           <div className="md:col-span-2">
             <img

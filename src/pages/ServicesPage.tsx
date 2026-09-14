@@ -17,7 +17,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
       />
 
       <div
-        className="py-20 px-8 lg:px-16 text-center"
+        className="py-12 md:py-20 px-5 sm:px-8 lg:px-16 text-center"
         style={{ background: "var(--cream)" }}
       >
         <div className="max-w-4xl mx-auto">
@@ -52,8 +52,11 @@ export default function ServicesPage({ onNav }: NavigationProps) {
       <ServicePillars cardClassName="px-10 lg:px-14 py-14 flex flex-col" />
 
       {/* 01 Live Stations deep-dive */}
-      <div className="py-20 px-8 lg:px-16" style={{ background: "var(--ink)" }}>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+      <div
+        className="py-12 md:py-20 px-5 sm:px-8 lg:px-16"
+        style={{ background: "var(--ink)" }}
+      >
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
           <div>
             <p
               className="font-display tracking-[0.2em] uppercase mb-3"
@@ -149,7 +152,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
               and more...
             </p>
           </div>
-          <div className="relative" style={{ height: 480 }}>
+          <div className="responsive-photo relative h-[480px]">
             <img
               src={IMG.grill}
               alt="Live grilling station"
@@ -170,11 +173,11 @@ export default function ServicesPage({ onNav }: NavigationProps) {
 
       {/* 02 End-to-End Catering deep-dive */}
       <div
-        className="py-20 px-8 lg:px-16"
+        className="py-12 md:py-20 px-5 sm:px-8 lg:px-16"
         style={{ background: "var(--cream)" }}
       >
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-          <div className="relative order-2 md:order-1" style={{ height: 480 }}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
+          <div className="responsive-photo relative order-2 md:order-1 h-[480px]">
             <img
               src={IMG.finedining}
               alt="Elegant catering setup"
@@ -271,12 +274,12 @@ export default function ServicesPage({ onNav }: NavigationProps) {
 
       {/* Bar catering partnership banner */}
       <div
-        className="px-8 lg:px-16 pb-0"
+        className="px-5 sm:px-8 lg:px-16 pb-0"
         style={{ background: "var(--cream)" }}
       >
         <div className="max-w-6xl mx-auto" style={{ position: "relative" }}>
           <div
-            className="relative px-10 md:px-16 py-10"
+            className="relative px-5 sm:px-10 md:px-16 py-10"
             style={{ background: "var(--ink)", overflow: "visible" }}
           >
             {/* Bottom-right gold square: 4/5 inside, 1/5 outside */}
@@ -293,7 +296,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
               }}
             />
             <div className="relative flex flex-col md:flex-row md:items-center gap-6">
-              <div className="flex-shrink-0" style={{ marginLeft: -14 }}>
+              <div className="flex-shrink-0 md:-ml-3.5">
                 <CocktailIcon />
               </div>
               <p
@@ -330,7 +333,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
 
       {/* Events we cater for */}
       <div
-        className="py-20 px-8 lg:px-16"
+        className="py-12 md:py-20 px-5 sm:px-8 lg:px-16"
         style={{
           background: "#ffffff",
           borderTop: "1px solid var(--border)",
@@ -338,7 +341,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
         }}
       >
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <h2
               className="font-heading mb-4"
               style={{
@@ -362,7 +365,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
               every table, for any occasion.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
             {[
               {
                 title: "Private Parties & Outdoor Gatherings",
@@ -432,9 +435,12 @@ export default function ServicesPage({ onNav }: NavigationProps) {
       </div>
 
       {/* How It Works — 4 steps */}
-      <div className="py-20 px-8 lg:px-16" style={{ background: "var(--ink)" }}>
+      <div
+        className="py-12 md:py-20 px-5 sm:px-8 lg:px-16"
+        style={{ background: "var(--ink)" }}
+      >
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-8 md:mb-14">
             <h2
               className="font-heading mb-4"
               style={{
@@ -486,10 +492,8 @@ export default function ServicesPage({ onNav }: NavigationProps) {
             ].map((step, i) => (
               <div
                 key={i}
-                className="px-8 py-10 flex flex-col relative"
+                className="working-step px-5 sm:px-8 py-10 flex flex-col relative"
                 style={{
-                  borderRight:
-                    i < 3 ? "1px solid rgba(249,193,10,0.15)" : "none",
                   borderBottom: "1px solid rgba(249,193,10,0.08)",
                 }}
               >
@@ -532,7 +536,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
 
       {/* CTA */}
       <div
-        className="py-16 px-8 text-center"
+        className="py-12 md:py-16 px-5 sm:px-8 text-center"
         style={{
           background: "var(--cream)",
           borderTop: "1px solid var(--border)",
@@ -547,7 +551,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
         <ActionButton
           variant="gold"
           onClick={() => onNav("contact")}
-          className="px-12 py-4"
+          className="px-5 sm:px-12 py-4"
         >
           Request a Quote
         </ActionButton>

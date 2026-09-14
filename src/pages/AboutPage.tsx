@@ -11,10 +11,10 @@ export default function AboutPage() {
     <div>
       <PageBanner title="About Us" subtitle="Who Are We" bgImage={IMG.about} />
       <div
-        className="py-24 px-8 lg:px-16"
+        className="py-14 md:py-24 px-5 sm:px-8 lg:px-16"
         style={{ background: "var(--cream)" }}
       >
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
           <div>
             <p
               className="font-display tracking-[0.35em] uppercase mb-4"
@@ -63,7 +63,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="relative" style={{ height: 540 }}>
+          <div className="responsive-photo relative h-[540px]">
             <img
               src={IMG.about}
               alt="Candlelit table arrangement"
@@ -82,9 +82,12 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="py-24 px-8 lg:px-16" style={{ background: "#ffffff" }}>
+      <div
+        className="py-14 md:py-24 px-5 sm:px-8 lg:px-16"
+        style={{ background: "#ffffff" }}
+      >
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-8 md:mb-14">
             <p
               className="font-display tracking-[0.4em] uppercase mb-3"
               style={{ color: "var(--gold)", fontSize: "0.75rem" }}
@@ -174,7 +177,7 @@ export default function AboutPage() {
               "linear-gradient(to right, rgba(26,26,26,0.88) 40%, transparent 100%)",
           }}
         />
-        <div className="absolute inset-0 flex items-center px-12 md:px-20 lg:px-32">
+        <div className="absolute inset-0 flex items-center px-5 sm:px-12 md:px-20 lg:px-32">
           <div style={{ maxWidth: 520 }}>
             <p
               className="font-display tracking-[0.35em] uppercase mb-3"

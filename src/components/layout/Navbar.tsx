@@ -9,6 +9,34 @@ export default function Navbar({
 }: { current: Page } & NavigationProps) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [current])
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px)")
+    const closeOnDesktop = () => {
+      if (desktop.matches) setMenuOpen(false)
+    }
+    desktop.addEventListener("change", closeOnDesktop)
+    return () => desktop.removeEventListener("change", closeOnDesktop)
+  }, [])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const scrollContainer = document.getElementById("page-scroll")
+    const previousOverflow = scrollContainer?.style.overflowY ?? ""
+    if (scrollContainer) scrollContainer.style.overflowY = "hidden"
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false)
+    }
+    window.addEventListener("keydown", handleKey)
+    return () => {
+      if (scrollContainer) scrollContainer.style.overflowY = previousOverflow
+      window.removeEventListener("keydown", handleKey)
+    }
+  }, [menuOpen])
   useEffect(() => {
     const el = document.getElementById("page-scroll")
     if (!el) return
@@ -18,7 +46,9 @@ export default function Navbar({
   }, [])
 
   const navBg =
-    current === "home" && !scrolled ? "transparent" : "rgba(26,26,26,0.97)"
+    current === "home" && !scrolled && !menuOpen
+      ? "transparent"
+      : "rgba(26,26,26,0.97)"
 
   return (
     <nav
@@ -31,7 +61,7 @@ export default function Navbar({
             : "none",
       }}
     >
-      <div className="w-full max-w-screen-2xl mx-auto px-8 lg:px-16 py-3 flex items-center justify-between">
+      <div className="w-full max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-16 py-3 flex items-center justify-between">
         <button
           onClick={() => {
             onNav("home")
@@ -77,7 +107,12 @@ export default function Navbar({
           ))}
         </div>
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
+          className="md:hidden flex flex-col items-center justify-center gap-1.5 p-2 min-w-11 min-h-11 cursor-pointer"
+          aria-label={
+            menuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
           onClick={() => setMenuOpen((o) => !o)}
         >
           {[0, 1, 2].map((i) => (
@@ -95,7 +130,8 @@ export default function Navbar({
       </div>
       {menuOpen && (
         <div
-          className="md:hidden"
+          id="mobile-navigation"
+          className="mobile-navigation-menu md:hidden"
           style={{
             background: "rgba(26,26,26,0.98)",
             borderTop: "1px solid rgba(249,193,10,0.15)",
@@ -108,7 +144,7 @@ export default function Navbar({
                 onNav(l.page)
                 setMenuOpen(false)
               }}
-              className="navigation-link block w-full text-left px-8 py-4 font-display tracking-[0.2em] uppercase border-b"
+              className="navigation-link block w-full text-left px-5 sm:px-8 py-4 font-display tracking-[0.2em] uppercase border-b"
               aria-current={current === l.page ? "page" : undefined}
               style={
                 {

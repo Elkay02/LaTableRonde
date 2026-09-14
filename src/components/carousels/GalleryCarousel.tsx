@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { GALLERY_IMAGES } from "@/data/images"
 
+interface TouchPoint {
+  x: number
+  y: number
+}
+
 export default function GalleryCarousel() {
   const [current, setCurrent] = useState(0)
   const [paused, setPaused] = useState(false)
@@ -8,7 +13,7 @@ export default function GalleryCarousel() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const stripRef = useRef<HTMLDivElement>(null)
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([])
-  const touchStartX = useRef<number | null>(null)
+  const touchStart = useRef<TouchPoint | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -59,13 +64,16 @@ export default function GalleryCarousel() {
     if (e.key === "ArrowRight") next()
   }
   const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
   }
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return
-    const diff = touchStartX.current - e.changedTouches[0].clientX
-    if (Math.abs(diff) > 40) diff > 0 ? next() : prev()
-    touchStartX.current = null
+    if (touchStart.current === null) return
+    const diffX = touchStart.current.x - e.changedTouches[0].clientX
+    const diffY = touchStart.current.y - e.changedTouches[0].clientY
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      diffX > 0 ? next() : prev()
+    }
+    touchStart.current = null
   }
 
   const transitionDur = reducedMotion ? "0ms" : "400ms"
@@ -91,7 +99,7 @@ export default function GalleryCarousel() {
         <button
           onClick={prev}
           aria-label="Previous image"
-          className="gallery-arrow"
+          className="gallery-arrow image-carousel-arrow image-carousel-arrow--previous"
           style={{
             position: "relative",
             zIndex: 10,
@@ -117,7 +125,9 @@ export default function GalleryCarousel() {
           </svg>
         </button>
 
-        <div style={{ flex: 1, maxWidth: 820, position: "relative" }}>
+        <div
+          style={{ flex: 1, minWidth: 0, maxWidth: 820, position: "relative" }}
+        >
           <div
             className="hidden md:block absolute pointer-events-none"
             style={{
@@ -155,6 +165,9 @@ export default function GalleryCarousel() {
             }}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
+            onTouchCancel={() => {
+              touchStart.current = null
+            }}
           >
             {GALLERY_IMAGES.map((img, i) => (
               <div
@@ -186,7 +199,7 @@ export default function GalleryCarousel() {
         <button
           onClick={next}
           aria-label="Next image"
-          className="gallery-arrow"
+          className="gallery-arrow image-carousel-arrow image-carousel-arrow--next"
           style={{
             position: "relative",
             zIndex: 10,
@@ -218,6 +231,7 @@ export default function GalleryCarousel() {
         <div
           ref={stripRef}
           style={{
+            position: "relative",
             display: "flex",
             gap: 8,
             overflowX: "auto",

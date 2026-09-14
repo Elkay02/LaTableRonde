@@ -13,7 +13,7 @@ export default function GalleryPage() {
         bgImage={IMG.finedining}
       />
       <div
-        className="py-20 px-8 lg:px-16 text-center"
+        className="py-12 md:py-20 px-5 sm:px-8 lg:px-16 text-center"
         style={{ background: "var(--cream)" }}
       >
         <div className="max-w-3xl mx-auto">

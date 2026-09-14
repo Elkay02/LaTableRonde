@@ -79,12 +79,150 @@ button:not(:disabled),
 }
 
 @media (max-width: 767px) {
-  .gallery-arrow {
+  .image-carousel-arrow {
     position: absolute !important;
     background: rgba(0,0,0,0.4) !important;
     padding: 8px !important;
     border-radius: 4px !important;
     opacity: 0.85 !important;
+    min-height: 44px;
+  }
+
+  .image-carousel-arrow--previous {
+    left: 8px;
+  }
+
+  .image-carousel-arrow--next {
+    right: 8px;
+  }
+}
+
+.home-hero {
+  min-height: 100vh;
+}
+
+.home-hero-spacer {
+  height: calc(64px + 6vh);
+}
+
+.home-hero-logo {
+  width: 130px;
+  height: 130px;
+}
+
+.home-hero-title {
+  font-size: clamp(2.8rem, 7vw, 6rem);
+}
+
+.home-hero-description {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.8;
+}
+
+.service-pillar:first-child {
+  border-right: 1px solid var(--border);
+}
+
+.working-step:not(:last-child) {
+  border-right: 1px solid rgba(249,193,10,0.15);
+}
+
+.mobile-navigation-menu {
+  max-height: calc(100vh - 82px);
+  max-height: calc(100dvh - 82px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .working-step:nth-child(2) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 767px) {
+  #page-scroll {
+    scroll-padding-top: 96px;
+  }
+
+  .home-hero {
+    min-height: 100svh;
+  }
+
+  .home-hero-spacer {
+    height: 88px;
+  }
+
+  .home-hero-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .home-hero-title {
+    font-size: clamp(2.25rem, 8vw, 2.8rem);
+  }
+
+  .home-hero-description {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .responsive-photo {
+    height: clamp(280px, 85vw, 360px);
+  }
+
+  .service-pillar {
+    padding: 32px 0;
+  }
+
+  .service-pillar:first-child {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .testimonial-layout {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .testimonial-content {
+    order: -1;
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
+  .testimonial-arrow {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .testimonial-dot {
+    box-sizing: content-box;
+    border: 18px solid transparent !important;
+    border-radius: 22px !important;
+    background-clip: content-box !important;
+  }
+
+  form input,
+  form select,
+  form textarea {
+    font-size: 16px;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 639px) {
+  .working-step:not(:last-child) {
+    border-right: none;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  form input,
+  form select,
+  form textarea {
+    font-size: 16px;
   }
 }
 

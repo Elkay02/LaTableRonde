@@ -9,7 +9,7 @@ export default function PageBanner({
 }) {
   return (
     <div
-      className="relative pt-32 pb-24 flex flex-col items-center justify-center overflow-hidden"
+      className="relative pt-32 pb-14 md:pb-24 flex flex-col items-center justify-center overflow-hidden"
       style={{ background: "var(--ink)" }}
     >
       {bgImage && (
@@ -28,7 +28,7 @@ export default function PageBanner({
             "linear-gradient(to bottom, rgba(26,26,26,0.55), rgba(26,26,26,0.75))",
         }}
       />
-      <div className="relative text-center px-8">
+      <div className="relative text-center px-5 sm:px-8">
         <p
           className="font-display tracking-[0.4em] uppercase mb-4"
           style={{ color: "var(--gold)", fontSize: "0.85rem" }}

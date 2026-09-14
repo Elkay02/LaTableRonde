@@ -12,8 +12,8 @@ export default function HomePage({ onNav }: NavigationProps) {
   return (
     <div>
       <div
-        className="relative flex flex-col overflow-hidden"
-        style={{ minHeight: "100vh", background: "#111" }}
+        className="home-hero relative flex flex-col overflow-hidden"
+        style={{ background: "#111" }}
       >
         <img
           src={IMG.hero}
@@ -29,18 +29,15 @@ export default function HomePage({ onNav }: NavigationProps) {
           }}
         />
 
-        <div style={{ height: "calc(64px + 6vh)", flexShrink: 0 }} />
+        <div className="home-hero-spacer" style={{ flexShrink: 0 }} />
 
         <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto w-full">
-          <div className="mb-8">
+          <div className="mb-4 md:mb-8">
             <img
               src={logoTransparent}
               alt="La Table Ronde"
+              className="home-hero-logo"
               style={{
-                width: 130,
-
-                height: 130,
-
                 objectFit: "contain",
 
                 display: "block",
@@ -50,13 +47,11 @@ export default function HomePage({ onNav }: NavigationProps) {
             />
           </div>
           <h1
-            className="font-display tracking-[0.15em] uppercase mb-6"
+            className="home-hero-title font-display tracking-[0.15em] uppercase mb-4 md:mb-6"
             style={{
               color: "var(--gold)",
 
               lineHeight: 1.05,
-
-              fontSize: "clamp(2.8rem, 7vw, 6rem)",
             }}
           >
             La Table
@@ -64,13 +59,9 @@ export default function HomePage({ onNav }: NavigationProps) {
             Ronde
           </h1>
           <p
-            className="font-body mb-12 mx-auto"
+            className="home-hero-description font-body mb-6 md:mb-12 mx-auto"
             style={{
               color: "rgba(255,255,255,0.72)",
-
-              lineHeight: 1.8,
-
-              fontSize: "clamp(1rem, 2vw, 1.25rem)",
 
               maxWidth: 560,
             }}
@@ -79,26 +70,26 @@ export default function HomePage({ onNav }: NavigationProps) {
             <br />
             brought to life through authentic live stations.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-6 justify-center items-center w-full">
             <ActionButton
               onClick={() => onNav("contact")}
-              className="w-64 max-w-full h-14 px-6 shrink-0"
+              className="w-64 max-w-full h-11 md:h-14 px-6 shrink-0"
             >
               Book an Event
             </ActionButton>
             <ActionButton
               variant="outline"
               onClick={() => onNav("services")}
-              className="w-64 max-w-full h-14 px-6 shrink-0"
+              className="w-64 max-w-full h-11 md:h-14 px-6 shrink-0"
             >
               Our Services
             </ActionButton>
           </div>
         </div>
 
-        <div className="relative flex flex-col items-center pb-10 pt-8 flex-shrink-0">
+        <div className="relative flex flex-col items-center pb-3 pt-3 md:pb-10 md:pt-8 flex-shrink-0">
           <div
-            className="w-px h-10 overflow-hidden"
+            className="w-px h-6 md:h-10 overflow-hidden"
             style={{ background: "rgba(255,255,255,0.15)" }}
           >
             <div
@@ -115,7 +106,7 @@ export default function HomePage({ onNav }: NavigationProps) {
 
       {/* Philosophy */}
       <div
-        className="py-24 px-8 lg:px-16"
+        className="py-14 md:py-24 px-5 sm:px-8 lg:px-16"
         style={{ background: "var(--cream)" }}
       >
         <div className="max-w-4xl mx-auto text-center">
@@ -192,7 +183,7 @@ export default function HomePage({ onNav }: NavigationProps) {
 
       {/* Gold CTA */}
       <div
-        className="py-20 px-8 text-center"
+        className="py-12 md:py-20 px-5 sm:px-8 text-center"
         style={{ background: "var(--gold)" }}
       >
         <p
@@ -214,7 +205,7 @@ export default function HomePage({ onNav }: NavigationProps) {
         <ActionButton
           variant="dark"
           onClick={() => onNav("contact")}
-          className="px-12 py-4"
+          className="px-5 sm:px-12 py-4"
         >
           Get in Touch
         </ActionButton>

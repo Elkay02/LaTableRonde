@@ -45,11 +45,11 @@ export default function TestimonialsCarousel() {
 
   return (
     <div
-      className="py-20 px-8 lg:px-16"
+      className="py-12 md:py-20 px-5 sm:px-8 lg:px-16"
       style={{ background: "#ffffff", borderTop: "1px solid var(--border)" }}
     >
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h2
             className="font-heading"
             style={{
@@ -63,11 +63,11 @@ export default function TestimonialsCarousel() {
           <GoldDivider />
         </div>
 
-        <div className="relative flex items-center gap-4">
+        <div className="testimonial-layout relative flex items-center gap-4">
           <button
             onClick={prev}
             aria-label="Previous testimonial"
-            className="gallery-arrow flex-shrink-0 max-md:left-0 max-md:z-10"
+            className="gallery-arrow testimonial-arrow flex-shrink-0"
             style={{
               background: "none",
               border: "none",
@@ -91,7 +91,7 @@ export default function TestimonialsCarousel() {
           </button>
 
           <div
-            className="flex-1 text-center px-4 md:px-10"
+            className="testimonial-content flex-1 text-center px-4 md:px-10"
             style={{
               opacity: fade ? 1 : 0,
               transition: "opacity 0.26s ease",
@@ -150,7 +150,7 @@ export default function TestimonialsCarousel() {
           <button
             onClick={next}
             aria-label="Next testimonial"
-            className="gallery-arrow flex-shrink-0 max-md:right-0 max-md:z-10"
+            className="gallery-arrow testimonial-arrow flex-shrink-0"
             style={{
               background: "none",
               border: "none",
@@ -180,6 +180,7 @@ export default function TestimonialsCarousel() {
             <button
               key={i}
               onClick={() => goTo(i)}
+              className="testimonial-dot"
               style={{
                 width: i === current ? 24 : 8,
                 height: 8,
