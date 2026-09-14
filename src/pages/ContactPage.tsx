@@ -5,6 +5,7 @@ import PageBanner from "@/components/ui/PageBanner"
 import InstagramIcon from "@/components/icons/InstagramIcon"
 import InstagramLink from "@/components/ui/InstagramLink"
 import InquiryForm from "@/components/forms/InquiryForm"
+import WhatsAppLink from "@/components/ui/WhatsAppLink"
 
 export default function ContactPage() {
   return (
@@ -60,6 +61,7 @@ export default function ContactPage() {
                   </svg>
                 ),
                 label: "Phone / WhatsApp",
+                whatsapp: true,
                 value: CONTACT.phone,
                 href: null,
               },
@@ -109,7 +111,12 @@ export default function ContactPage() {
                   >
                     {item.label}
                   </p>
-                  {item.href ? (
+                  {item.whatsapp ? (
+                    <WhatsAppLink
+                      className="font-body text-sm"
+                      style={{ color: "var(--ink)" }}
+                    />
+                  ) : item.href ? (
                     <a
                       href={item.href}
                       className="font-body text-sm transition-opacity duration-200 hover:opacity-70"

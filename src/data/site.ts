@@ -5,3 +5,6 @@ export const CONTACT = {
 }
 
 export const INSTAGRAM_URL = "https://www.instagram.com/latableronde.lb/"
+export const LES_BUVEURS_INSTAGRAM_URL =
+  "https://www.instagram.com/lesbuveursbar/"
+export const WHATSAPP_URL = `https://wa.me/${CONTACT.phone.replace(/\D/g, "")}`

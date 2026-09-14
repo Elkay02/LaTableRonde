@@ -30,6 +30,11 @@ body {
   background: var(--cream);
 }
 
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
 .font-display {
   font-family: 'Cinzel', serif;
 }

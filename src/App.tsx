@@ -1,5 +1,4 @@
-import { useState } from "react"
-import type { Page } from "@/types/navigation"
+import usePageNavigation from "@/hooks/usePageNavigation"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import HomePage from "@/pages/HomePage"
@@ -9,11 +8,7 @@ import GalleryPage from "@/pages/GalleryPage"
 import ContactPage from "@/pages/ContactPage"
 
 export default function App() {
-  const [page, setPage] = useState<Page>("home")
-  const navigate = (p: Page) => {
-    setPage(p)
-    document.getElementById("page-scroll")?.scrollTo({ top: 0 })
-  }
+  const { page, navigate } = usePageNavigation()
   return (
     <div
       id="page-scroll"

@@ -4,7 +4,8 @@ React, Vite, and Tailwind CSS site for La Table Ronde.
 
 ## Source layout
 
-- `src/App.tsx` owns the active page and scroll reset on navigation.
+- `src/App.tsx` renders the active page and shared layout.
+- `src/hooks/usePageNavigation.ts` synchronizes the active page with the URL, browser history, and scroll reset.
 - `src/pages/` contains Home, About, Services, Gallery, and Contact.
 - `src/components/layout/` contains the shared navigation and footer.
 - `src/components/ui/` contains page banners, dividers, and Instagram links.
@@ -17,7 +18,9 @@ React, Vite, and Tailwind CSS site for La Table Ronde.
 - `src/types/` contains shared navigation types.
 - `src/index.css` owns fonts, theme values, global styles, and animations.
 
-Pages use the existing state-based navigation. Edit shared content in `src/data/` and page-specific content in its page component.
+Page URLs are `/`, `/about`, `/services`, `/gallery`, and `/contact`. Navigation supports direct links, refresh, and the browser's Back and Forward buttons, including deployment under a base path. Edit shared content in `src/data/` and page-specific content in its page component.
+
+Production hosting must serve `index.html` for page URLs (an SPA fallback/rewrite) so direct links and refresh work. Vite's development and preview servers provide this fallback automatically.
 
 ## Development
 

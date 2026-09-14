@@ -1,4 +1,5 @@
 import ActionButton from "@/components/ui/ActionButton"
+import { LES_BUVEURS_INSTAGRAM_URL } from "@/data/site"
 import { IMG } from "@/data/images"
 import GoldDivider from "@/components/ui/GoldDivider"
 import PageBanner from "@/components/ui/PageBanner"
@@ -310,12 +311,15 @@ export default function ServicesPage({ onNav }: NavigationProps) {
                   full bar catering services
                 </span>{" "}
                 in partnership with our sister brand{" "}
-                <span
-                  className="font-body"
+                <a
+                  href={LES_BUVEURS_INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body cursor-pointer underline underline-offset-4 transition-opacity duration-200 hover:opacity-70"
                   style={{ color: "var(--gold)", fontWeight: 600 }}
                 >
                   Les Buveurs
-                </span>
+                </a>
                 {", "}ensuring every aspect of your event, from the first toast
                 to the last sip, is handled with the same care and expertise.
               </p>

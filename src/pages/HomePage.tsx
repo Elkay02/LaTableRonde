@@ -1,7 +1,11 @@
 import logoTransparent from "@/imports/La_Table_Ronde_logo_transparent.png"
+import ActionButton from "@/components/ui/ActionButton"
 import { IMG } from "@/data/images"
+
 import ServicePillars from "@/components/sections/ServicePillars"
+
 import GoldDivider from "@/components/ui/GoldDivider"
+
 import type { NavigationProps } from "@/types/navigation"
 
 export default function HomePage({ onNav }: NavigationProps) {
@@ -34,9 +38,13 @@ export default function HomePage({ onNav }: NavigationProps) {
               alt="La Table Ronde"
               style={{
                 width: 130,
+
                 height: 130,
+
                 objectFit: "contain",
+
                 display: "block",
+
                 margin: "0 auto",
               }}
             />
@@ -45,7 +53,9 @@ export default function HomePage({ onNav }: NavigationProps) {
             className="font-display tracking-[0.15em] uppercase mb-6"
             style={{
               color: "var(--gold)",
+
               lineHeight: 1.05,
+
               fontSize: "clamp(2.8rem, 7vw, 6rem)",
             }}
           >
@@ -57,8 +67,11 @@ export default function HomePage({ onNav }: NavigationProps) {
             className="font-body mb-12 mx-auto"
             style={{
               color: "rgba(255,255,255,0.72)",
+
               lineHeight: 1.8,
+
               fontSize: "clamp(1rem, 2vw, 1.25rem)",
+
               maxWidth: 560,
             }}
           >
@@ -66,31 +79,20 @@ export default function HomePage({ onNav }: NavigationProps) {
             <br />
             brought to life through authentic live stations.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full">
+            <ActionButton
               onClick={() => onNav("contact")}
-              className="font-display tracking-[0.28em] uppercase px-12 py-4 transition-all duration-300 hover:opacity-90"
-              style={{
-                background: "var(--gold)",
-                color: "var(--ink)",
-                fontSize: "0.7rem",
-                minWidth: 200,
-              }}
+              className="w-64 max-w-full h-14 px-6 shrink-0"
             >
               Book an Event
-            </button>
-            <button
+            </ActionButton>
+            <ActionButton
+              variant="outline"
               onClick={() => onNav("services")}
-              className="font-display tracking-[0.28em] uppercase px-12 py-4 transition-all duration-300 hover:bg-white/10"
-              style={{
-                border: "1px solid rgba(255,255,255,0.45)",
-                color: "rgba(255,255,255,0.9)",
-                fontSize: "0.7rem",
-                minWidth: 200,
-              }}
+              className="w-64 max-w-full h-14 px-6 shrink-0"
             >
               Our Services
-            </button>
+            </ActionButton>
           </div>
         </div>
 
@@ -103,6 +105,7 @@ export default function HomePage({ onNav }: NavigationProps) {
               className="w-full h-1/2"
               style={{
                 background: "var(--gold)",
+
                 animation: "slideDown 1.5s ease-in-out infinite",
               }}
             />
@@ -120,7 +123,9 @@ export default function HomePage({ onNav }: NavigationProps) {
             className="font-display tracking-[0.4em] uppercase mb-4"
             style={{
               color: "var(--gold)",
+
               fontSize: "0.8rem",
+
               fontWeight: 600,
             }}
           >
@@ -130,8 +135,11 @@ export default function HomePage({ onNav }: NavigationProps) {
             className="font-heading mb-6"
             style={{
               color: "var(--ink)",
+
               fontWeight: 400,
+
               lineHeight: 1.35,
+
               fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
             }}
           >
@@ -144,7 +152,9 @@ export default function HomePage({ onNav }: NavigationProps) {
             className="font-body leading-loose mt-6 mx-auto"
             style={{
               color: "var(--charcoal)",
+
               maxWidth: 640,
+
               fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)",
             }}
           >
@@ -195,22 +205,19 @@ export default function HomePage({ onNav }: NavigationProps) {
           className="font-display tracking-[0.08em] uppercase mb-6"
           style={{
             color: "var(--ink)",
+
             fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
           }}
         >
           Plan Your Next Event With Us
         </h2>
-        <button
+        <ActionButton
+          variant="dark"
           onClick={() => onNav("contact")}
-          className="font-display tracking-[0.28em] uppercase px-12 py-4 transition-all duration-300 hover:opacity-80"
-          style={{
-            background: "var(--ink)",
-            color: "var(--gold)",
-            fontSize: "0.7rem",
-          }}
+          className="px-12 py-4"
         >
           Get in Touch
-        </button>
+        </ActionButton>
       </div>
     </div>
   )

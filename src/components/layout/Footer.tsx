@@ -3,6 +3,7 @@ import { CONTACT } from "@/data/site"
 import { NAVIGATION_LINKS } from "@/data/navigation"
 import InstagramLink from "@/components/ui/InstagramLink"
 import InstagramIcon from "@/components/icons/InstagramIcon"
+import WhatsAppLink from "@/components/ui/WhatsAppLink"
 import type { NavigationProps } from "@/types/navigation"
 import type { CSSProperties } from "react"
 
@@ -88,7 +89,7 @@ export default function Footer({ onNav }: NavigationProps) {
               >
                 {CONTACT.email}
               </a>
-              <p>{CONTACT.phone}</p>
+              <WhatsAppLink />
               <InstagramLink
                 className="flex items-center gap-2 pt-2 transition-opacity duration-200 hover:opacity-70"
                 style={{ cursor: "pointer" }}
