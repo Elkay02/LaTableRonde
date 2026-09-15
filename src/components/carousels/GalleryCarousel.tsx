@@ -8,6 +8,9 @@ interface TouchPoint {
 
 export default function GalleryCarousel() {
   const [current, setCurrent] = useState(0)
+  const [loadedSlides, setLoadedSlides] = useState(
+    () => new Set([0, 1, GALLERY_IMAGES.length - 1]),
+  )
   const [paused, setPaused] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -15,6 +18,17 @@ export default function GalleryCarousel() {
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([])
   const touchStart = useRef<TouchPoint | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    // Keep visited slides mounted for crossfades and preload adjacent photos.
+    setLoadedSlides((loaded) => {
+      const next = new Set(loaded)
+      next.add(current)
+      next.add((current + 1) % GALLERY_IMAGES.length)
+      next.add((current - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length)
+      return next
+    })
+  }, [current])
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -180,17 +194,19 @@ export default function GalleryCarousel() {
                   pointerEvents: i === current ? "auto" : "none",
                 }}
               >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  loading={i < 2 ? "eager" : "lazy"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                />
+                {(loadedSlides.has(i) || i === current) && (
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    decoding="async"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                )}
               </div>
             ))}
           </div>
@@ -267,7 +283,7 @@ export default function GalleryCarousel() {
               }}
             >
               <img
-                src={img.src}
+                src={img.thumbnail}
                 alt={img.alt}
                 loading="lazy"
                 style={{

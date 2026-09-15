@@ -35,6 +35,12 @@ pnpm build
 
 Figma Make provides its own running development server. Source edits appear in its preview automatically.
 
+## Gallery photos
+
+The gallery uses 30 local WebP photos in `src/assets/gallery/`, with smaller copies in `src/assets/gallery/thumbnails/`. Photo order and descriptions are defined in `src/data/images.ts`. The carousel loads the current and adjacent full-size photos, retaining visited slides for smooth transitions.
+
+The full-resolution originals, including the two HEIC files, are preserved in `gallery-originals/`. This folder is ignored by Git and is not included in the production build; back it up separately. The WebP photos and thumbnails are the files to commit and deploy.
+
 ## Contact form email delivery
 
 Inquiries are sent to `lucienkayrouz@gmail.com` using [FormSubmit's AJAX endpoint](https://formsubmit.co/ajax-documentation). All seven form fields are included, and Reply-To is set to the visitor's email address. No API key or backend server is needed.
