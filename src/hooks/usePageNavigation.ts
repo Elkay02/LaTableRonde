@@ -1,18 +1,11 @@
 import { useCallback, useEffect, useState } from "react"
 import type { Page } from "@/types/navigation"
-
-const PAGE_PATHS: Record<Page, string> = {
-  home: "/",
-  about: "/about",
-  services: "/services",
-  gallery: "/gallery",
-  contact: "/contact",
-}
+import { PAGE_PATHS, SITE_ORIGIN } from "@/data/routes"
 
 // Preserve the deployment prefix used by Figma Make or a subdirectory host.
 const basePath = new URL(
   import.meta.env.BASE_URL,
-  window.location.origin,
+  typeof window === "undefined" ? SITE_ORIGIN : window.location.origin,
 ).pathname.replace(/\/$/, "")
 
 function getPagePath(page: Page) {
@@ -32,8 +25,8 @@ function scrollToTop() {
   document.getElementById("page-scroll")?.scrollTo({ top: 0 })
 }
 
-export default function usePageNavigation() {
-  const [page, setPage] = useState<Page>(readPage)
+export default function usePageNavigation(initialPage?: Page) {
+  const [page, setPage] = useState<Page>(() => initialPage ?? readPage())
 
   const navigate = useCallback((nextPage: Page) => {
     const path = getPagePath(nextPage)

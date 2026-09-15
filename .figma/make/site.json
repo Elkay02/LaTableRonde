@@ -5,7 +5,7 @@
   },
   "description": "Showcases a Lebanese catering company's services with elegant design and easy navigation to inform clients and facilitate contact.",
   "robots": {
-    "index": false
+    "index": true
   },
   "accessibility": {
     "addBypassLinks": false,

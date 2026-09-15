@@ -6,9 +6,10 @@ import AboutPage from "@/pages/AboutPage"
 import ServicesPage from "@/pages/ServicesPage"
 import GalleryPage from "@/pages/GalleryPage"
 import ContactPage from "@/pages/ContactPage"
+import type { Page } from "@/types/navigation"
 
-export default function App() {
-  const { page, navigate } = usePageNavigation()
+export default function App({ initialPage }: { initialPage?: Page }) {
+  const { page, navigate } = usePageNavigation(initialPage)
   return (
     <div
       id="page-scroll"

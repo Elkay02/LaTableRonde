@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 import siteConfiguration from './.figma/make/site.json'
+import { PAGE_PATHS, SITE_ORIGIN } from './src/data/routes'
+import prerender from './plugins/prerender'
 
 // Vite config — https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -20,6 +22,7 @@ export default defineConfig(({ mode }) => {
       react(),
       tailwindcss(),
       figmaSiteConfiguration(siteConfiguration),
+      prerender(),
       figmaErrorOverlayReplay(),
       figmaReactRefreshBoundaryFallback(),
       figmaMakeKitPlugin({ storiesGlob: '/src/**/*.stories.{ts,tsx,js,jsx}' }),
@@ -95,26 +98,32 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
   const headEnd = config.customScripts?.headEnd ?? ''
   const bodyStart = config.customScripts?.bodyStart ?? ''
   const bodyEnd = config.customScripts?.bodyEnd ?? ''
-  const robotsTxt = config.robots?.index === false ? 'User-agent: *\nDisallow: /\n' : ''
+  const robotsTxt = `User-agent: *\nAllow: /\n\nSitemap: ${SITE_ORIGIN}/sitemap.xml\n`
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${Object.values(PAGE_PATHS).map(route => `  <url><loc>${SITE_ORIGIN}${route}</loc></url>`).join('\n')}\n</urlset>\n`
 
   return {
     name: 'figma-site-configuration',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (!robotsTxt || req.url?.split('?')[0] !== '/robots.txt') return next()
-
-        res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-        res.end(robotsTxt)
+        const requestPath = req.url?.split('?')[0]
+        if (requestPath === '/robots.txt') {
+          res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+          res.end(robotsTxt)
+        } else if (requestPath === '/sitemap.xml') {
+          res.setHeader('Content-Type', 'application/xml; charset=utf-8')
+          res.end(sitemap)
+        } else {
+          next()
+        }
       })
     },
     generateBundle() {
-      if (!robotsTxt) return
-
       this.emitFile({
         type: 'asset',
         fileName: 'robots.txt',
         source: robotsTxt,
       })
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: sitemap })
     },
     transformIndexHtml: {
       order: 'pre',
@@ -130,9 +139,6 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
         const tags: HtmlTagDescriptor[] = []
         if (description) {
           tags.push({ tag: 'meta', attrs: { name: 'description', content: description }, injectTo: 'head' })
-        }
-        if (config.robots?.index === false) {
-          tags.push({ tag: 'meta', attrs: { name: 'robots', content: 'noindex, nofollow' }, injectTo: 'head' })
         }
         if (favicon) {
           tags.push({ tag: 'link', attrs: { rel: 'icon', href: favicon }, injectTo: 'head' })
