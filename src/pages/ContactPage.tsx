@@ -25,7 +25,7 @@ export default function ContactPage() {
             <div>
               <p
                 className="font-display tracking-[0.3em] uppercase mb-3"
-                style={{ color: "var(--gold)", fontSize: "0.75rem" }}
+                style={{ color: "var(--gold)", fontSize: "0.8rem", fontWeight: 600 }}
               >
                 Reach Us
               </p>
@@ -154,10 +154,11 @@ export default function ContactPage() {
                 <span
                   className="font-display tracking-[0.18em] uppercase"
                   style={{
-                    color: "var(--gold)",
+                    color: "var(--ink)",
                     fontSize: "0.65rem",
                     textDecoration: "underline",
                     textUnderlineOffset: 4,
+                    fontWeight: 600,
                   }}
                 >
                   @latableronde.lb

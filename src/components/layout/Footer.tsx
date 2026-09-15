@@ -3,6 +3,7 @@ import { CONTACT } from "@/data/site"
 import { NAVIGATION_LINKS } from "@/data/navigation"
 import InstagramLink from "@/components/ui/InstagramLink"
 import InstagramIcon from "@/components/icons/InstagramIcon"
+import EmailIcon from "@/components/icons/EmailIcon"
 import WhatsAppLink from "@/components/ui/WhatsAppLink"
 import type { NavigationProps } from "@/types/navigation"
 import type { CSSProperties } from "react"
@@ -75,29 +76,30 @@ export default function Footer({ onNav }: NavigationProps) {
               Contact
             </p>
             <div
-              className="space-y-3 font-body text-sm"
+              className="space-y-3 font-body text-sm [&_svg]:size-[18px] [&_svg]:shrink-0"
               style={{ color: "rgba(255,255,255,0.45)" }}
             >
               <a
                 href={`mailto:${CONTACT.email}`}
-                className="block transition-opacity duration-200 hover:opacity-70"
+                className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
                 style={{
                   color: "rgba(255,255,255,0.45)",
                   textDecoration: "underline",
                   textUnderlineOffset: 3,
                 }}
               >
-                {CONTACT.email}
+                <EmailIcon />
+                <span>{CONTACT.email}</span>
               </a>
               <WhatsAppLink />
               <InstagramLink
                 className="flex items-center gap-2 pt-2 transition-opacity duration-200 hover:opacity-70"
                 style={{ cursor: "pointer" }}
               >
-                <InstagramIcon size={15} />
+                <InstagramIcon size={18} />
                 <span
                   className="font-display tracking-[0.18em] uppercase"
-                  style={{ color: "var(--gold)", fontSize: "0.6rem" }}
+                  style={{ color: "inherit", fontSize: "0.6rem" }}
                 >
                   @latableronde.lb
                 </span>

@@ -18,7 +18,7 @@ export default function AboutPage() {
           <div>
             <p
               className="font-display tracking-[0.35em] uppercase mb-4"
-              style={{ color: "var(--gold)", fontSize: "0.75rem" }}
+              style={{ color: "var(--gold)", fontSize: "0.8rem", fontWeight: 600 }}
             >
               Our Story
             </p>
@@ -90,7 +90,7 @@ export default function AboutPage() {
           <div className="text-center mb-8 md:mb-14">
             <p
               className="font-display tracking-[0.4em] uppercase mb-3"
-              style={{ color: "var(--gold)", fontSize: "0.75rem" }}
+              style={{ color: "var(--gold)", fontSize: "0.8rem", fontWeight: 600 }}
             >
               What We Stand For
             </p>
@@ -181,7 +181,7 @@ export default function AboutPage() {
           <div style={{ maxWidth: 520 }}>
             <p
               className="font-display tracking-[0.35em] uppercase mb-3"
-              style={{ color: "var(--gold)", fontSize: "0.75rem" }}
+              style={{ color: "var(--gold)", fontSize: "0.8rem", fontWeight: 600 }}
             >
               Live. Crafted. Served.
             </p>
