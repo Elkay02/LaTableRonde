@@ -17,6 +17,10 @@ html, body, #root {
   height: 100%;
 }
 
+#page-scroll {
+  scroll-padding-top: 96px;
+}
+
 * {
   scrollbar-width: none;
 }
@@ -59,6 +63,13 @@ button:not(:disabled),
 @keyframes slideDown {
   0% { transform: translateY(-100%); }
   100% { transform: translateY(200%); }
+}
+
+.gallery-carousel {
+  /* Reserve 224px for the fixed navbar, thumbnails, padding, and breathing room.
+     Limit width from the available height so the frame keeps its 4:3 ratio. */
+  --gallery-image-width: min(820px, max(0px, calc((100vh - 224px) * 4 / 3)));
+  --gallery-image-width: min(820px, max(0px, calc((100dvh - 224px) * 4 / 3)));
 }
 
 .gallery-arrow {
@@ -141,10 +152,6 @@ button:not(:disabled),
 }
 
 @media (max-width: 767px) {
-  #page-scroll {
-    scroll-padding-top: 96px;
-  }
-
   .home-hero {
     min-height: 100svh;
   }

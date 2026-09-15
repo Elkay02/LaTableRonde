@@ -11,13 +11,11 @@ export default function GalleryCarousel() {
   const [loadedSlides, setLoadedSlides] = useState(
     () => new Set([0, 1, GALLERY_IMAGES.length - 1]),
   )
-  const [paused, setPaused] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const stripRef = useRef<HTMLDivElement>(null)
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([])
   const touchStart = useRef<TouchPoint | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     // Keep visited slides mounted for crossfades and preload adjacent photos.
@@ -48,12 +46,11 @@ export default function GalleryCarousel() {
   }, [reducedMotion])
 
   useEffect(() => {
-    if (!paused) startTimer()
-    else if (timerRef.current) clearInterval(timerRef.current)
+    startTimer()
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
     }
-  }, [paused, startTimer])
+  }, [startTimer])
 
   useEffect(() => {
     const strip = stripRef.current
@@ -93,18 +90,8 @@ export default function GalleryCarousel() {
   const transitionDur = reducedMotion ? "0ms" : "400ms"
 
   return (
-    <div
-      className="py-4 px-4 md:px-8"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={(e) => {
-        if (!containerRef.current?.contains(e.relatedTarget as Node))
-          setPaused(false)
-      }}
-    >
+    <div className="gallery-carousel py-4 px-4 md:px-8">
       <div
-        ref={containerRef}
         tabIndex={0}
         onKeyDown={handleKey}
         className="relative flex items-center justify-center mx-auto outline-none"
@@ -140,7 +127,12 @@ export default function GalleryCarousel() {
         </button>
 
         <div
-          style={{ flex: 1, minWidth: 0, maxWidth: 820, position: "relative" }}
+          style={{
+            flex: 1,
+            minWidth: 0,
+            maxWidth: "var(--gallery-image-width)",
+            position: "relative",
+          }}
         >
           <div
             className="hidden md:block absolute pointer-events-none"
@@ -202,7 +194,7 @@ export default function GalleryCarousel() {
                     style={{
                       width: "100%",
                       height: "100%",
-                      objectFit: "cover",
+                      objectFit: "contain",
                       display: "block",
                     }}
                   />
@@ -243,7 +235,10 @@ export default function GalleryCarousel() {
       </div>
 
       {/* Thumbnail strip — no counter */}
-      <div className="mx-auto mt-6" style={{ maxWidth: 820 }}>
+      <div
+        className="mx-auto mt-6"
+        style={{ maxWidth: "var(--gallery-image-width)" }}
+      >
         <div
           ref={stripRef}
           style={{

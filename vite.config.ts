@@ -61,6 +61,10 @@ type FigmaSiteConfiguration = {
   }
   openGraph?: {
     image?: string
+    imageWidth?: number
+    imageHeight?: number
+    imageType?: string
+    imageAlt?: string
   }
   analytics?: {
     googleAnalyticsId?: string
@@ -145,6 +149,7 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
         }
         if (title) {
           tags.push({ tag: 'meta', attrs: { property: 'og:title', content: title }, injectTo: 'head' })
+          tags.push({ tag: 'meta', attrs: { property: 'og:site_name', content: title }, injectTo: 'head' })
         }
         if (description) {
           tags.push({ tag: 'meta', attrs: { property: 'og:description', content: description }, injectTo: 'head' })
@@ -155,6 +160,17 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
             { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' }, injectTo: 'head' },
             { tag: 'meta', attrs: { name: 'twitter:image', content: socialImage }, injectTo: 'head' },
           )
+          const imageMetadata = {
+            'og:image:width': config.openGraph?.imageWidth,
+            'og:image:height': config.openGraph?.imageHeight,
+            'og:image:type': config.openGraph?.imageType,
+            'og:image:alt': config.openGraph?.imageAlt,
+          }
+          for (const [property, value] of Object.entries(imageMetadata)) {
+            if (value !== undefined) {
+              tags.push({ tag: 'meta', attrs: { property, content: String(value) }, injectTo: 'head' })
+            }
+          }
         }
 
         if (googleAnalyticsId) {

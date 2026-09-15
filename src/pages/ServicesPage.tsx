@@ -4,7 +4,6 @@ import { IMG } from "@/data/images"
 import GoldDivider from "@/components/ui/GoldDivider"
 import PageBanner from "@/components/ui/PageBanner"
 import CocktailIcon from "@/components/icons/CocktailIcon"
-import ServicePillars from "@/components/sections/ServicePillars"
 import type { NavigationProps } from "@/types/navigation"
 
 export default function ServicesPage({ onNav }: NavigationProps) {
@@ -48,11 +47,9 @@ export default function ServicesPage({ onNav }: NavigationProps) {
         </div>
       </div>
 
-      {/* 01 / 02 pillars */}
-      <ServicePillars cardClassName="px-10 lg:px-14 py-14 flex flex-col" />
-
       {/* 01 Live Stations deep-dive */}
       <div
+        id="live-stations"
         className="py-12 md:py-20 px-5 sm:px-8 lg:px-16"
         style={{ background: "var(--ink)" }}
       >
@@ -173,6 +170,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
 
       {/* 02 End-to-End Catering deep-dive */}
       <div
+        id="end-to-end-catering"
         className="py-12 md:py-20 px-5 sm:px-8 lg:px-16"
         style={{ background: "var(--cream)" }}
       >

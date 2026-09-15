@@ -158,7 +158,10 @@ export default function HomePage({ onNav }: NavigationProps) {
       </div>
 
       {/* Two pillars */}
-      <ServicePillars cardClassName="px-10 lg:px-16 py-14 flex flex-col" />
+      <ServicePillars
+        onNav={onNav}
+        cardClassName="px-10 lg:px-16 py-14 flex flex-col"
+      />
 
       {/* Gallery strip */}
       <div

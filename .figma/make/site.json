@@ -1,11 +1,18 @@
 {
   "title": "La Table Ronde",
   "icons": {
-    "icon": "/src/imports/La_Table_Ronde_logo_transparent.png"
+    "icon": "/favicon.png"
   },
-  "description": "Showcases a Lebanese catering company's services with elegant design and easy navigation to inform clients and facilitate contact.",
+  "description": "Live cooking stations and full end-to-end catering across Lebanon. Menu design, professional staff and equipment for any occasions raging from private gatherings to grand celebrations.",
   "robots": {
     "index": true
+  },
+  "openGraph": {
+    "image": "https://la-tableronde.com/whatsapp-preview-v2.png",
+    "imageWidth": 1730,
+    "imageHeight": 909,
+    "imageType": "image/png",
+    "imageAlt": "La Table Ronde logo"
   },
   "accessibility": {
     "addBypassLinks": false,
