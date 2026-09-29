@@ -2,11 +2,14 @@ import type { ComponentProps } from "react"
 import { CONTACT, WHATSAPP_URL } from "@/data/site"
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon"
 
-type WhatsAppLinkProps = Pick<ComponentProps<"a">, "className" | "style">
+type WhatsAppLinkProps = Pick<ComponentProps<"a">, "className" | "style"> & {
+  showIcon?: boolean
+}
 
 export default function WhatsAppLink({
   className = "",
   style,
+  showIcon = true,
 }: WhatsAppLinkProps) {
   return (
     <a
@@ -17,7 +20,7 @@ export default function WhatsAppLink({
       className={`inline-flex items-center gap-2 underline underline-offset-4 transition-opacity duration-200 hover:opacity-70 ${className}`}
       style={{ color: "inherit", ...style }}
     >
-      <WhatsAppIcon />
+      {showIcon && <WhatsAppIcon />}
       <span>{CONTACT.phone}</span>
     </a>
   )

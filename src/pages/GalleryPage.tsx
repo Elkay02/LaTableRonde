@@ -10,7 +10,7 @@ export default function GalleryPage() {
       <PageBanner
         title="Gallery"
         subtitle="Our Highlights"
-        bgImage={IMG.finedining}
+        bgImage={IMG.galleryBanner}
       />
       <div
         className="py-12 md:py-20 px-5 sm:px-8 lg:px-16 text-center"

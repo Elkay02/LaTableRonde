@@ -1,4 +1,5 @@
 import ActionButton from "@/components/ui/ActionButton"
+import ReviewInvitation from "@/components/sections/ReviewInvitation"
 import { IMG } from "@/data/images"
 import { CONTACT } from "@/data/site"
 import PageBanner from "@/components/ui/PageBanner"
@@ -6,6 +7,8 @@ import InstagramIcon from "@/components/icons/InstagramIcon"
 import InstagramLink from "@/components/ui/InstagramLink"
 import InquiryForm from "@/components/forms/InquiryForm"
 import WhatsAppLink from "@/components/ui/WhatsAppLink"
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon"
+import LocationIcon from "@/components/icons/LocationIcon"
 
 export default function ContactPage() {
   return (
@@ -13,7 +16,7 @@ export default function ContactPage() {
       <PageBanner
         title="Contact Us"
         subtitle="We Would Love to Hear From You"
-        bgImage={IMG.finedining}
+        bgImage={IMG.contactBanner}
       />
 
       <div
@@ -25,7 +28,11 @@ export default function ContactPage() {
             <div>
               <p
                 className="font-display tracking-[0.3em] uppercase mb-3"
-                style={{ color: "var(--gold)", fontSize: "0.8rem", fontWeight: 600 }}
+                style={{
+                  color: "var(--gold)",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                }}
               >
                 Reach Us
               </p>
@@ -48,18 +55,7 @@ export default function ContactPage() {
             </div>
             {[
               {
-                icon: (
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--gold)"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13 19.79 19.79 0 0 1 1.08 4.4 2 2 0 0 1 3.06 2.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                ),
+                icon: <WhatsAppIcon />,
                 label: "Phone / WhatsApp",
                 whatsapp: true,
                 value: CONTACT.phone,
@@ -84,22 +80,10 @@ export default function ContactPage() {
                 href: `mailto:${CONTACT.email}`,
               },
               {
-                icon: (
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--gold)"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                ),
+                icon: <LocationIcon />,
                 label: "Location",
                 value: CONTACT.location,
-                href: null,
+                href: CONTACT.mapsUrl,
               },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-4">
@@ -113,12 +97,21 @@ export default function ContactPage() {
                   </p>
                   {item.whatsapp ? (
                     <WhatsAppLink
+                      showIcon={false}
                       className="font-body text-sm"
                       style={{ color: "var(--ink)" }}
                     />
                   ) : item.href ? (
                     <a
                       href={item.href}
+                      target={
+                        item.href === CONTACT.mapsUrl ? "_blank" : undefined
+                      }
+                      rel={
+                        item.href === CONTACT.mapsUrl
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       className="font-body text-sm transition-opacity duration-200 hover:opacity-70"
                       style={{
                         color: "var(--ink)",
@@ -173,7 +166,9 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* Join Our Team — white background for contrast */}
+      <ReviewInvitation />
+
+      {/* Join Our Team */}
       <div
         className="px-5 sm:px-8 lg:px-16 py-10 md:py-14"
         style={{ background: "#ffffff", borderTop: "1px solid var(--border)" }}

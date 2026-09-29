@@ -9,7 +9,7 @@ import ContactPage from "@/pages/ContactPage"
 import type { Page } from "@/types/navigation"
 
 export default function App({ initialPage }: { initialPage?: Page }) {
-  const { page, navigate } = usePageNavigation(initialPage)
+  const { page, navigate, transition } = usePageNavigation(initialPage)
   return (
     <div
       id="page-scroll"
@@ -17,14 +17,19 @@ export default function App({ initialPage }: { initialPage?: Page }) {
       style={{ background: "var(--cream)" }}
     >
       <Navbar current={page} onNav={navigate} />
-      <main>
-        {page === "home" && <HomePage onNav={navigate} />}
-        {page === "about" && <AboutPage />}
-        {page === "services" && <ServicesPage onNav={navigate} />}
-        {page === "gallery" && <GalleryPage />}
-        {page === "contact" && <ContactPage />}
-      </main>
-      <Footer onNav={navigate} />
+      <div
+        key={page}
+        className={`page-transition page-transition--${transition}`}
+      >
+        <main>
+          {page === "home" && <HomePage onNav={navigate} />}
+          {page === "about" && <AboutPage />}
+          {page === "services" && <ServicesPage onNav={navigate} />}
+          {page === "gallery" && <GalleryPage />}
+          {page === "contact" && <ContactPage />}
+        </main>
+        <Footer onNav={navigate} />
+      </div>
     </div>
   )
 }

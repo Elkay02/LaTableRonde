@@ -60,25 +60,27 @@ import tandoori4x3Upscaled2x from "@/assets/gallery/tandoori-4x3-upscaled-2x.web
 import tandoori4x3Upscaled2xThumbnail from "@/assets/gallery/thumbnails/tandoori-4x3-upscaled-2x.webp"
 
 export const IMG = {
-  hero: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1800&h=1000&fit=crop&auto=format",
-  about:
-    "https://images.unsplash.com/photo-1562050147-fda1cc9a6378?w=1400&h=700&fit=crop&auto=format",
-  chef: "https://images.unsplash.com/photo-1564844536308-50b114a1d946?w=1400&h=700&fit=crop&auto=format",
-  grill:
-    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=900&h=700&fit=crop&auto=format",
-  finedining:
-    "https://images.unsplash.com/photo-1572387147902-d7d137cb0fbd?w=1400&h=700&fit=crop&auto=format",
-  cooking:
-    "https://images.unsplash.com/photo-1769955817432-641929f613f0?w=900&h=700&fit=crop&auto=format",
-  feast:
-    "https://images.unsplash.com/photo-1681353523973-926db2891d30?w=900&h=700&fit=crop&auto=format",
-  outdoor:
-    "https://images.unsplash.com/photo-1481214110143-ed630356e1bb?w=800&h=600&fit=crop&auto=format",
-  wedding:
-    "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=800&h=600&fit=crop&auto=format",
+  hero: tableSetup4x3Centered,
+  about: burgers4x3,
+  story: stationCanopy4x3,
+  aboutLandscape: birdsClayDish4x3,
+  servicesBanner: pizzaOven4x3,
+  liveStations: lamb24x3FocusLight,
+  endToEndCatering: honeyCake4x3,
+  outdoor: coteletteChef4x3Focus,
+  wedding: tableSetup4x3Centered,
+  galleryBanner: tandoori4x3Upscaled2x,
+  contactBanner: lamb4x3FocusMedium,
   corporate:
     "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=600&fit=crop&auto=format",
 }
+
+export const HOME_IMAGES = [
+  { src: ltr1, alt: "Lamb roasting over coals at an outdoor event", position: "50% 50%" },
+  { src: ltr2, alt: "Guest selecting a freshly prepared wrap", position: "50% 70%" },
+  { src: ltr10, alt: "La Table Ronde chef carving meat at a live station", position: "50% 60%" },
+  { src: ltr15, alt: "Eggs and meat cooking in cast-iron pans over coals", position: "50% 60%" },
+]
 
 export const GALLERY_IMAGES = [
   {
@@ -107,6 +109,11 @@ export const GALLERY_IMAGES = [
     alt: "Chef holding a grilled bone-in chop",
   },
   {
+    src: lambSpitBrazier4x3,
+    thumbnail: lambSpitBrazier4x3Thumbnail,
+    alt: "Lamb roasting above a wood-fired brazier",
+  },
+  {
     src: cotelettesSkewer4x3,
     thumbnail: cotelettesSkewer4x3Thumbnail,
     alt: "Grilled chops roasting on a skewer",
@@ -117,84 +124,19 @@ export const GALLERY_IMAGES = [
     alt: "Eggs cooking in a cast-iron pan",
   },
   {
-    src: honeyCake4x3,
-    thumbnail: honeyCake4x3Thumbnail,
-    alt: "Slices of layered honey cake",
-  },
-  {
-    src: icecream4x5FocusVerylight,
-    thumbnail: icecream4x5FocusVerylightThumbnail,
-    alt: "Colorful scoops of ice cream in a cone",
-  },
-  {
-    src: img4420,
-    thumbnail: img4420Thumbnail,
-    alt: "Overhead view of vegetables and pans on the grill",
-  },
-  {
-    src: img4910,
-    thumbnail: img4910Thumbnail,
-    alt: "Outdoor buffet overlooking the mountains",
-  },
-  {
     src: kharoufCutting4x3,
     thumbnail: kharoufCutting4x3Thumbnail,
     alt: "Carving roast lamb at a live station",
   },
   {
+    src: honeyCake4x3,
+    thumbnail: honeyCake4x3Thumbnail,
+    alt: "Slices of layered honey cake",
+  },
+  {
     src: lamb4x3FocusMedium,
     thumbnail: lamb4x3FocusMediumThumbnail,
     alt: "Whole lamb roasting on a spit outdoors",
-  },
-  {
-    src: lambSpitBrazier4x3,
-    thumbnail: lambSpitBrazier4x3Thumbnail,
-    alt: "Lamb roasting above a wood-fired brazier",
-  },
-  {
-    src: lamb24x3FocusLight,
-    thumbnail: lamb24x3FocusLightThumbnail,
-    alt: "Roast lamb cooking over glowing coals",
-  },
-  {
-    src: ltr1,
-    thumbnail: ltr1Thumbnail,
-    alt: "Wood-fired roasting station in the garden",
-  },
-  {
-    src: ltr2,
-    thumbnail: ltr2Thumbnail,
-    alt: "Chef arranging filled pastries",
-  },
-  {
-    src: ltr3,
-    thumbnail: ltr3Thumbnail,
-    alt: "Chef cutting cooked meat for serving",
-  },
-  {
-    src: ltr10,
-    thumbnail: ltr10Thumbnail,
-    alt: "Chef chopping meat at a live station",
-  },
-  {
-    src: ltr11,
-    thumbnail: ltr11Thumbnail,
-    alt: "Skewers cooking over an outdoor grill",
-  },
-  {
-    src: ltr14,
-    thumbnail: ltr14Thumbnail,
-    alt: "Chef preparing food at a La Table Ronde station",
-  },
-  {
-    src: ltr15,
-    thumbnail: ltr15Thumbnail,
-    alt: "Eggs and meat sizzling in pans over the fire",
-  },
-  {
-    src: ltr18,
-    thumbnail: ltr18Thumbnail,
-    alt: "La Table Ronde chef at an outdoor event",
   },
   {
     src: pansEggsCoals4x3,
@@ -205,6 +147,11 @@ export const GALLERY_IMAGES = [
     src: pansGrill4x3Focus,
     thumbnail: pansGrill4x3FocusThumbnail,
     alt: "Three pans cooking on the outdoor grill",
+  },
+  {
+    src: lamb24x3FocusLight,
+    thumbnail: lamb24x3FocusLightThumbnail,
+    alt: "Roast lamb cooking over glowing coals",
   },
   {
     src: pizzaOven4x3,

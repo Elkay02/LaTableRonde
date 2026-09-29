@@ -2,10 +2,12 @@ export default function PageBanner({
   title,
   subtitle,
   bgImage,
+  bgPosition = "50% 50%",
 }: {
   title: string
   subtitle?: string
   bgImage?: string
+  bgPosition?: string
 }) {
   return (
     <div
@@ -17,8 +19,8 @@ export default function PageBanner({
           src={bgImage}
           alt=""
           aria-hidden
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ opacity: 0.3 }}
+          className="absolute inset-x-0 bottom-0 w-full object-cover"
+          style={{ height: "calc(100% - 82px)", opacity: 0.3, objectPosition: bgPosition }}
         />
       )}
       <div

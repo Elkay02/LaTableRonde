@@ -9,7 +9,7 @@ import IconPassion from "@/components/icons/IconPassion"
 export default function AboutPage() {
   return (
     <div>
-      <PageBanner title="About Us" subtitle="Who Are We" bgImage={IMG.about} />
+      <PageBanner title="About Us" subtitle="Who Are We" bgImage={IMG.about} bgPosition="55% 8%" />
       <div
         className="py-14 md:py-24 px-5 sm:px-8 lg:px-16"
         style={{ background: "var(--cream)" }}
@@ -65,9 +65,10 @@ export default function AboutPage() {
           </div>
           <div className="responsive-photo relative h-[540px]">
             <img
-              src={IMG.about}
-              alt="Candlelit table arrangement"
+              src={IMG.story}
+              alt="La Table Ronde chefs preparing food beneath an outdoor canopy"
               className="w-full h-full object-cover"
+              style={{ objectPosition: "72% 45%" }}
             />
             <div
               className="absolute -bottom-5 -left-5 hidden md:block"
@@ -104,6 +105,7 @@ export default function AboutPage() {
             >
               Our Values
             </h2>
+            <GoldDivider />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
@@ -165,10 +167,10 @@ export default function AboutPage() {
 
       <div className="relative overflow-hidden" style={{ height: 440 }}>
         <img
-          src={IMG.chef}
-          alt="Chef at live cooking station"
+          src={IMG.aboutLandscape}
+          alt="Chef preparing a dish in a clay pan over the fire"
           className="w-full h-full object-cover"
-          style={{ opacity: 0.6 }}
+          style={{ opacity: 0.6, objectPosition: "50% 70%" }}
         />
         <div
           className="absolute inset-0"

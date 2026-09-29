@@ -1,4 +1,6 @@
-export const INQUIRY_EMAIL = "lucienkayrouz@gmail.com"
+import { CONTACT } from "@/data/site"
+
+export const INQUIRY_EMAIL = CONTACT.email
 
 export interface Inquiry {
   name: string

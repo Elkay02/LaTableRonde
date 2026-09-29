@@ -1,6 +1,6 @@
 import logoTransparent from "@/imports/La_Table_Ronde_logo_transparent.png"
 import ActionButton from "@/components/ui/ActionButton"
-import { IMG } from "@/data/images"
+import { HOME_IMAGES, IMG } from "@/data/images"
 
 import ServicePillars from "@/components/sections/ServicePillars"
 
@@ -17,7 +17,7 @@ export default function HomePage({ onNav }: NavigationProps) {
       >
         <img
           src={IMG.hero}
-          alt="Elegant banquet table setting"
+          alt="Outdoor dining table set with flowers and glassware"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ opacity: 0.45 }}
         />
@@ -166,19 +166,19 @@ export default function HomePage({ onNav }: NavigationProps) {
       {/* Gallery strip */}
       <div
         className="grid grid-cols-2 md:grid-cols-4 gap-0"
-        style={{ height: 340 }}
       >
-        {[IMG.grill, IMG.finedining, IMG.cooking, IMG.feast].map((src, i) => (
+        {HOME_IMAGES.map(({ src, alt, position }) => (
           <div
-            key={i}
-            className="relative overflow-hidden"
+            key={src}
+            className="relative overflow-hidden aspect-[3/4]"
             style={{ background: "#1a1a1a" }}
           >
             <img
               src={src}
-              alt="Catering event"
+              alt={alt}
+              loading="lazy"
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-              style={{ opacity: 0.8 }}
+              style={{ opacity: 0.8, objectPosition: position }}
             />
           </div>
         ))}

@@ -4,6 +4,7 @@ import { NAVIGATION_LINKS } from "@/data/navigation"
 import InstagramLink from "@/components/ui/InstagramLink"
 import InstagramIcon from "@/components/icons/InstagramIcon"
 import EmailIcon from "@/components/icons/EmailIcon"
+import LocationIcon from "@/components/icons/LocationIcon"
 import WhatsAppLink from "@/components/ui/WhatsAppLink"
 import type { NavigationProps } from "@/types/navigation"
 import type { CSSProperties } from "react"
@@ -29,12 +30,6 @@ export default function Footer({ onNav }: NavigationProps) {
                 marginBottom: 12,
               }}
             />
-            <span
-              className="block font-display tracking-[0.3em] uppercase mb-3"
-              style={{ color: "var(--gold)", fontSize: "0.68rem" }}
-            >
-              La Table Ronde
-            </span>
             <p
               className="font-body text-sm leading-loose"
               style={{ color: "rgba(255,255,255,0.45)", maxWidth: 320 }}
@@ -92,6 +87,15 @@ export default function Footer({ onNav }: NavigationProps) {
                 <span>{CONTACT.email}</span>
               </a>
               <WhatsAppLink />
+              <a
+                href={CONTACT.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 underline underline-offset-4 transition-opacity duration-200 hover:opacity-70"
+              >
+                <LocationIcon />
+                <span>{CONTACT.location}</span>
+              </a>
               <InstagramLink
                 className="flex items-center gap-2 pt-2 transition-opacity duration-200 hover:opacity-70"
                 style={{ cursor: "pointer" }}

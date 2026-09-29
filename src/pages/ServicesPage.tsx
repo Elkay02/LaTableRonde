@@ -12,7 +12,8 @@ export default function ServicesPage({ onNav }: NavigationProps) {
       <PageBanner
         title="Our Services"
         subtitle="What We Offer"
-        bgImage={IMG.chef}
+        bgImage={IMG.servicesBanner}
+        bgPosition="50% 48%"
       />
 
       <div
@@ -151,8 +152,8 @@ export default function ServicesPage({ onNav }: NavigationProps) {
           </div>
           <div className="responsive-photo relative h-[480px]">
             <img
-              src={IMG.grill}
-              alt="Live grilling station"
+              src={IMG.liveStations}
+              alt="Roast lamb cooking over glowing coals at a live station"
               className="w-full h-full object-cover"
             />
             <div
@@ -177,8 +178,8 @@ export default function ServicesPage({ onNav }: NavigationProps) {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
           <div className="responsive-photo relative order-2 md:order-1 h-[480px]">
             <img
-              src={IMG.finedining}
-              alt="Elegant catering setup"
+              src={IMG.endToEndCatering}
+              alt="Slices of layered honey cake"
               className="w-full h-full object-cover"
             />
             <div
@@ -350,6 +351,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
             >
               We Cater for Every Celebration
             </h2>
+            <GoldDivider />
             <p
               className="font-body mx-auto"
               style={{
@@ -449,6 +451,7 @@ export default function ServicesPage({ onNav }: NavigationProps) {
             >
               Working With Us
             </h2>
+            <GoldDivider />
             <p
               className="font-body mx-auto"
               style={{
@@ -534,20 +537,19 @@ export default function ServicesPage({ onNav }: NavigationProps) {
 
       {/* CTA */}
       <div
-        className="py-12 md:py-16 px-5 sm:px-8 text-center"
+        className="py-12 md:py-20 px-5 sm:px-8 text-center"
         style={{
-          background: "var(--cream)",
-          borderTop: "1px solid var(--border)",
+          background: "var(--gold)",
         }}
       >
-        <p
-          className="font-body italic text-base mb-6"
-          style={{ color: "var(--charcoal)" }}
+        <h2
+          className="font-display tracking-[0.08em] uppercase mb-6"
+          style={{ color: "var(--ink)", fontSize: "clamp(1.5rem, 3vw, 2.2rem)" }}
         >
           Ready to plan your event?
-        </p>
+        </h2>
         <ActionButton
-          variant="gold"
+          variant="dark"
           onClick={() => onNav("contact")}
           className="px-5 sm:px-12 py-4"
         >

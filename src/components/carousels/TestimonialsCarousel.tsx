@@ -41,8 +41,6 @@ export default function TestimonialsCarousel() {
     }
   }, [])
 
-  const t = TESTIMONIALS[current]
-
   return (
     <div
       className="py-12 md:py-20 px-5 sm:px-8 lg:px-16"
@@ -90,61 +88,69 @@ export default function TestimonialsCarousel() {
             </svg>
           </button>
 
-          <div
-            className="testimonial-content flex-1 text-center px-4 md:px-10"
-            style={{
-              opacity: fade ? 1 : 0,
-              transition: "opacity 0.26s ease",
-              minHeight: 200,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div
-              className="font-heading mb-4"
-              style={{
-                color: "var(--gold)",
-                fontSize: "5rem",
-                lineHeight: 0.8,
-                fontWeight: 700,
-                fontStyle: "normal",
-              }}
-            >
-              &ldquo;
-            </div>
-            <p
-              className="font-heading italic mb-6 leading-loose mx-auto"
-              style={{
-                color: "var(--ink)",
-                fontSize: "clamp(1.1rem, 1.8vw, 1.35rem)",
-                maxWidth: 640,
-                fontWeight: 400,
-              }}
-            >
-              {t.quote}
-            </p>
-            <div
-              style={{
-                width: 32,
-                height: 1,
-                background: "var(--gold)",
-                margin: "0 auto 16px",
-              }}
-            />
-            <p
-              className="font-display tracking-[0.2em] uppercase"
-              style={{ color: "var(--ink)", fontSize: "0.72rem" }}
-            >
-              {t.name}
-            </p>
-            <p
-              className="font-body mt-1"
-              style={{ color: "var(--muted)", fontSize: "0.8rem" }}
-            >
-              {t.event}
-            </p>
+          <div className="testimonial-content flex-1 text-center px-4 md:px-10 grid">
+            {/* All quotes share a grid cell so the longest reserves the height. */}
+            {TESTIMONIALS.map((t, i) => (
+              <div
+                key={t.name}
+                aria-hidden={i !== current}
+                style={{
+                  gridArea: "1 / 1",
+                  visibility: i === current ? "visible" : "hidden",
+                  opacity: i === current && fade ? 1 : 0,
+                  transition: "opacity 0.26s ease",
+                  minHeight: 200,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div
+                  className="font-heading mb-4"
+                  style={{
+                    color: "var(--gold)",
+                    fontSize: "5rem",
+                    lineHeight: 0.8,
+                    fontWeight: 700,
+                    fontStyle: "normal",
+                  }}
+                >
+                  &ldquo;
+                </div>
+                <p
+                  className="font-heading italic mb-6 leading-loose mx-auto"
+                  style={{
+                    color: "var(--ink)",
+                    fontSize: "clamp(1.1rem, 1.8vw, 1.35rem)",
+                    maxWidth: 640,
+                    fontWeight: 400,
+                  }}
+                >
+                  {t.quote}
+                </p>
+                <div
+                  style={{
+                    width: 32,
+                    height: 1,
+                    background: "var(--gold)",
+                    margin: "0 auto 16px",
+                  }}
+                />
+                <p
+                  className="font-display tracking-[0.2em] uppercase"
+                  style={{ color: "var(--ink)", fontSize: "0.72rem" }}
+                >
+                  {t.name}
+                </p>
+                <p
+                  className="font-body mt-1"
+                  style={{ color: "var(--muted)", fontSize: "0.8rem" }}
+                >
+                  {t.event}
+                </p>
+              </div>
+            ))}
           </div>
 
           <button
