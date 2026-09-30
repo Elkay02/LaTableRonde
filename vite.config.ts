@@ -51,6 +51,7 @@ export default defineConfig(({ mode }) => {
 
 type FigmaSiteConfiguration = {
   title?: string
+  siteName?: string
   description?: string
   language?: string
   robots?: {
@@ -93,6 +94,7 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
   }
 
   const title = config.title ?? "La Table Ronde"
+  const siteName = config.siteName ?? title
   const description = config.description ?? ''
   const favicon = config.icons?.icon ?? ''
   const socialImage = config.openGraph?.image ?? ''
@@ -149,7 +151,20 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
         }
         if (title) {
           tags.push({ tag: 'meta', attrs: { property: 'og:title', content: title }, injectTo: 'head' })
-          tags.push({ tag: 'meta', attrs: { property: 'og:site_name', content: title }, injectTo: 'head' })
+        }
+        if (siteName) {
+          tags.push({ tag: 'meta', attrs: { property: 'og:site_name', content: siteName }, injectTo: 'head' })
+          tags.push({
+            tag: 'script',
+            attrs: { type: 'application/ld+json' },
+            children: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: siteName,
+              url: `${SITE_ORIGIN}/`,
+            }).replace(/</g, '\\u003c'),
+            injectTo: 'head',
+          })
         }
         if (description) {
           tags.push({ tag: 'meta', attrs: { property: 'og:description', content: description }, injectTo: 'head' })

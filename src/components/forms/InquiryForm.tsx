@@ -16,6 +16,7 @@ export default function InquiryForm() {
     message: "",
   })
   const [sent, setSent] = useState(false)
+  const [website, setWebsite] = useState("")
   const [isSending, setIsSending] = useState(false)
   const [error, setError] = useState<"required" | "send" | null>(null)
   const sendingRef = useRef(false)
@@ -24,7 +25,7 @@ export default function InquiryForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (sendingRef.current) return
-    if (!form.name.trim() || !form.phone.trim() || !form.message.trim()) {
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim() || !form.message.trim()) {
       setError("required")
       return
     }
@@ -34,7 +35,7 @@ export default function InquiryForm() {
     setError(null)
 
     try {
-      await sendInquiry(form)
+      await sendInquiry(form, website)
       setSent(true)
     } catch {
       setError("send")
@@ -91,10 +92,18 @@ export default function InquiryForm() {
           className="space-y-4"
           aria-busy={isSending}
         >
+          <div hidden aria-hidden="true">
+            <label>
+              Website
+              <input name="website" tabIndex={-1} autoComplete="off" value={website}
+                onChange={(e) => setWebsite(e.target.value)} />
+            </label>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormInput
               label="Full Name *"
               name="name"
+              maxLength={150}
               autoComplete="name"
               disabled={isSending}
               required
@@ -104,6 +113,7 @@ export default function InquiryForm() {
             <FormInput
               label="Email Address *"
               name="email"
+              maxLength={254}
               autoComplete="email"
               disabled={isSending}
               required
@@ -118,6 +128,7 @@ export default function InquiryForm() {
             <FormInput
               label="Phone / WhatsApp *"
               name="phone"
+              maxLength={50}
               autoComplete="tel"
               disabled={isSending}
               required
@@ -172,6 +183,7 @@ export default function InquiryForm() {
           <FormField label="Message *">
             <textarea
               name="message"
+              maxLength={5000}
               disabled={isSending}
               required
               rows={5}

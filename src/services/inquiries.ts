@@ -12,13 +12,13 @@ export interface Inquiry {
   message: string
 }
 
-export async function sendInquiry(inquiry: Inquiry): Promise<void> {
+export async function sendInquiry(inquiry: Inquiry, website = ""): Promise<void> {
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 20000)
 
   try {
     const response = await fetch(
-      `https://formsubmit.co/ajax/${INQUIRY_EMAIL}`,
+      "/api/inquiries",
       {
         method: "POST",
         headers: {
@@ -30,13 +30,11 @@ export async function sendInquiry(inquiry: Inquiry): Promise<void> {
           name: inquiry.name.trim(),
           email: inquiry.email.trim(),
           phone: inquiry.phone.trim(),
-          "Event type": inquiry.event || "Not specified",
-          "Event date": inquiry.date || "Not specified",
-          "Number of guests": inquiry.guests || "Not specified",
+          event: inquiry.event,
+          date: inquiry.date,
+          guests: inquiry.guests,
           message: inquiry.message.trim(),
-          _subject: "New event inquiry - La Table Ronde",
-          _replyto: inquiry.email.trim(),
-          _template: "table",
+          website,
         }),
       },
     )
@@ -48,7 +46,7 @@ export async function sendInquiry(inquiry: Inquiry): Promise<void> {
       !result ||
       typeof result !== "object" ||
       !("success" in result) ||
-      (result.success !== true && result.success !== "true")
+      result.success !== true
     ) {
       throw new Error("Inquiry was not accepted")
     }
