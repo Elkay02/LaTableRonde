@@ -44,40 +44,29 @@ The full-resolution originals, including the two HEIC files, are preserved in `g
 
 ## Contact form email delivery
 
-The form posts to `/api/inquiries`, a Cloudflare Worker handler that calls the [Cloudflare Email Service REST API](https://developers.cloudflare.com/email-service/api/send-emails/rest-api/). All seven fields are included in a plain-text email, with the visitor's email as Reply-To. FormSubmit and its activation link are no longer used. The public contact address remains `hello@la-tableronde.com`; the receiving inbox is configured separately.
+The form posts to `/api/inquiries`. The Cloudflare Worker sends all seven fields through the [Resend email API](https://resend.com/docs/api-reference/emails/send-email) to `hello@la-tableronde.com`. The visitor's address is set as Reply-To so replies from Gmail go to the visitor. No Cloudflare Email Routing, Cloudflare Email Sending, or FormSubmit activation is required.
 
-The live site is a **Workers Static Assets** deployment, not Cloudflare Pages. Its former assets-only deployment cannot accept runtime variables or bindings. Deploying `worker/index.ts` alongside `dist` using `wrangler.jsonc` enables the runtime needed by the form. The “Workers 0” card in the dashboard describes connected Workers, not whether this project is a Worker.
+### Setup
 
-### Deploy the Worker code
-
-Commit and push these changes to the connected repository. In **latableronde → Settings → Builds**, use build command `npm run build` and deploy command `npx wrangler deploy` from the repository root. Remove any old deploy command that uploads only `dist` or uses `wrangler pages deploy`. The config targets the existing Worker name `latableronde`; retain its existing custom domain in the dashboard. No DNS migration is required.
-
-After the deployment finishes, **Settings → Runtime variables and secrets** should allow adding configuration. The endpoint will return a configuration error until the email variables below are set. Static website pages continue to work.
-
-### Cloudflare setup (required before delivery works)
-
-1. **Preserve Google Workspace:** `hello@la-tableronde.com` is an existing Gmail inbox. Keep the root `smtp.google.com` MX record, Google SPF/DKIM, and Google verification records. Do not enable Cloudflare Email Routing on the root domain or remove conflicting Google records. For a separate sender, configure Email Routing on an unused subdomain such as `forms.la-tableronde.com` using [Cloudflare's subdomain settings](https://developers.cloudflare.com/email-service/configuration/subdomains/). Check that all proposed mail records belong to that subdomain; if the dashboard requires changing root MX records or upgrading, stop and resolve that account setup before continuing. Subdomain setup has not been verified in this account.
-2. Add and verify `hello@la-tableronde.com` (or your preferred real inbox) under **Email Routing → Destination Addresses**. Sending to verified destinations through the API is [free on all plans](https://developers.cloudflare.com/email-service/platform/pricing/), including when only Email Routing is configured. This does not require forwarding the root domain to Cloudflare. Do not enable paid arbitrary-recipient sending for this form.
-3. Create an API token scoped to this account with **Email Sending: Edit** permission.
-4. After deploying the Worker code, open **Workers & Pages → latableronde → Settings → Runtime variables and secrets**, and add these for **Production**:
+1. In Resend, add **la-tableronde.com** under Domains and enable **sending**. Add the exact DNS records Resend provides in Cloudflare and wait for Verified status. Keep the existing Google root MX, SPF, DKIM, and verification records. Resend's sending setup uses its own DKIM selector and a return-path subdomain (typically `send`) for SPF and bounce MX records. Do not enable Resend receiving or replace the root Google MX. A separate sender subdomain is optional; this setup uses the main domain.
+2. Revoke any API key shared in chat or committed to source. Create a replacement Resend key with sending permission for this domain. Never put it in React code or a `VITE_` variable.
+3. In **Workers & Pages > latableronde > Settings > Runtime variables and secrets**, add:
 
    | Name | Type | Value |
    | --- | --- | --- |
-   | `CF_ACCOUNT_ID` | Text | Your Cloudflare account ID (not zone ID) |
-   | `CF_EMAIL_API_TOKEN` | Secret | The token from step 3 |
-   | `INQUIRY_FROM` | Text | `inquiries@forms.la-tableronde.com`, once that sender subdomain is configured |
-   | `INQUIRY_TO` | Text | `hello@la-tableronde.com`, once verified as a destination |
+   | `RESEND_API_KEY` | Secret | Your replacement Resend API key |
+   | `INQUIRY_FROM` | Text | `hello@la-tableronde.com` |
+   | `INQUIRY_TO` | Text | `hello@la-tableronde.com` |
 
-   Never prefix these with `VITE_` or commit credentials. Preview deployments need separate configuration if you want them to send email; leaving them unset disables delivery there.
-5. Save and deploy the runtime configuration. `keep_vars` in `wrangler.jsonc` preserves dashboard variables on subsequent deployments; credentials must stay out of source control. The assets-only warning should no longer appear after deploying the Worker code.
-6. Submit a real inquiry from the deployed `/contact` page. Check the inbox and spam folder, all seven fields, and that Reply addresses the visitor. This manual delivery check is required; automated tests mock Cloudflare and do not send emails.
+4. Deploy the updated repository with build command `npm run build` and deploy command `npx wrangler deploy`. Save/deploy the runtime settings too. Existing `CF_ACCOUNT_ID` and `CF_EMAIL_API_TOKEN` variables are no longer used and can be removed. The existing `latableronde` Worker and custom domain are retained; `keep_vars` preserves dashboard variables across deployments.
+5. Submit an inquiry from the live `/contact` page. Confirm all fields arrive in Gmail (check spam) and that Reply targets the visitor. Resend's email logs show subsequent delivery or bounce events. Automated tests mock the provider and never send mail.
 
-The endpoint validates fields, bounds the request body, checks the browser origin, and includes a honeypot for basic bot filtering. For protection against repeated automated requests, configure a Cloudflare rate-limiting rule for POST `/api/inquiries` on the production hostname. Origin checks and the honeypot alone are not comprehensive spam prevention.
+`onboarding@resend.dev` in Resend's starter example is a test sender with recipient restrictions. Production uses your verified `hello@la-tableronde.com` sender. A successful API response means Resend accepted the message, not guaranteed inbox delivery. Failed requests keep the entered values. A timeout after acceptance followed by a manual retry may produce a duplicate.
 
-Success means Cloudflare reports the recipient delivered or queued. A bounce, failed API response, missing configuration, or timeout produces an error and preserves the visitor's entries. Queued email may still fail later; monitor Cloudflare email logs. A timeout can occur after acceptance, so retrying can result in a duplicate.
+The endpoint validates fields, limits request size, checks origin, and uses a honeypot. These checks are basic bot filtering, not comprehensive spam protection. Configure a Cloudflare rate-limiting rule for POST `/api/inquiries` if needed to protect your sending quota.
 
 ### Local verification
 
-Run `npm run typecheck`, `npm run test:inquiries`, and `npm run build`. Plain Vite/Figma previews do not execute the Worker, so email submission there will show the retry/email fallback rather than pretend to succeed. To exercise the backend locally, build first and use `npx wrangler dev` from the repository root. Put the four server variables in a local `.dev.vars` file (ignored by Git). Using real credentials sends real email.
+Run `npm run typecheck`, `npm run test:inquiries`, and `npm run build`. Plain Vite/Figma previews do not execute the Worker. To run the backend locally, build and run `npx wrangler dev`. Put the three runtime variables in an ignored `.dev.vars` file; real credentials send real email.
 
-`wrangler.jsonc` routes `/api` and `/api/*` to the Worker before the SPA fallback. Static assets are served directly, and prerendered page URLs retain their no-trailing-slash format. The router also delegates non-API requests to the assets binding if invoked.
+`wrangler.jsonc` targets the Workers Static Assets deployment. It routes `/api` and `/api/*` before the SPA fallback, serves static assets directly, and preserves prerendered page URLs without trailing slashes.

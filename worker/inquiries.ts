@@ -1,6 +1,5 @@
 export interface InquiryEnv {
-  CF_ACCOUNT_ID?: string
-  CF_EMAIL_API_TOKEN?: string
+  RESEND_API_KEY?: string
   INQUIRY_FROM?: string
   INQUIRY_TO?: string
 }
@@ -74,8 +73,8 @@ export default async function handleInquiry({ request, env }: { request: Request
     return reply(400, "Invalid date")
   }
 
-  const { CF_ACCOUNT_ID, CF_EMAIL_API_TOKEN, INQUIRY_FROM, INQUIRY_TO } = env
-  if (!CF_ACCOUNT_ID || !/^[a-f0-9]{32}$/i.test(CF_ACCOUNT_ID) || !CF_EMAIL_API_TOKEN ||
+  const { RESEND_API_KEY, INQUIRY_FROM, INQUIRY_TO } = env
+  if (!RESEND_API_KEY ||
     !INQUIRY_FROM || !emailPattern.test(INQUIRY_FROM) || !INQUIRY_TO || !emailPattern.test(INQUIRY_TO)) {
     console.error("Inquiry email configuration is missing or invalid")
     return reply(503, "Email is not configured")
@@ -84,14 +83,14 @@ export default async function handleInquiry({ request, env }: { request: Request
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 15000)
   try {
-    const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/email/sending/send`, {
+    const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { Authorization: `Bearer ${CF_EMAIL_API_TOKEN}`, "Content-Type": "application/json" },
+      headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
       signal: controller.signal,
       body: JSON.stringify({
         from: INQUIRY_FROM,
-        to: INQUIRY_TO,
-        replyTo: fields.email,
+        to: [INQUIRY_TO],
+        reply_to: fields.email,
         subject: "New event inquiry - La Table Ronde",
         text: [
           `Name: ${fields.name}`, `Email: ${fields.email}`, `Phone / WhatsApp: ${fields.phone}`,
@@ -100,15 +99,9 @@ export default async function handleInquiry({ request, env }: { request: Request
         ].join("\n"),
       }),
     })
-    const result = await response.json() as {
-      success?: boolean
-      result?: { delivered?: string[]; queued?: string[]; permanent_bounces?: string[] }
-    }
-    const delivery = result.result
-    const accepted = [delivery?.delivered, delivery?.queued].some(
-      (addresses) => Array.isArray(addresses) && addresses.includes(INQUIRY_TO),
-    )
-    if (!response.ok || result.success !== true || !accepted || delivery?.permanent_bounces?.includes(INQUIRY_TO)) {
+    const result: unknown = await response.json()
+    if (!response.ok || !result || typeof result !== "object" ||
+      !("id" in result) || typeof result.id !== "string" || !result.id.trim()) {
       console.error("Inquiry email rejected", response.status)
       return reply(502, "Email was not accepted")
     }

@@ -17,7 +17,7 @@ const workerOutput = ts.transpileModule(workerSource, {
 const { default: worker } = await import(`data:text/javascript;base64,${Buffer.from(workerOutput).toString("base64")}`)
 const origin = "https://la-tableronde.com"
 const env = {
-  CF_ACCOUNT_ID: "a".repeat(32), CF_EMAIL_API_TOKEN: "test-token",
+  RESEND_API_KEY: "test-token",
   INQUIRY_FROM: "hello@la-tableronde.com", INQUIRY_TO: "inbox@example.com",
 }
 const inquiry = {
@@ -40,23 +40,21 @@ test("Worker inquiry endpoint", async (t) => {
     return apiResponse.clone()
   })
   t.mock.method(console, "error", () => {})
-  await t.test("delivered and queued mail preserve all fields and fixed recipient", async () => {
-    for (const status of ["delivered", "queued"]) {
-      apiResponse = Response.json({ success: true, result: { [status]: [env.INQUIRY_TO] } })
+  await t.test("accepted mail preserves all fields, fixed recipient and Reply-To", async () => {
+      apiResponse = Response.json({ id: "test-email-id" })
       const response = await onRequest({ request: request({ ...inquiry, to: "attacker@example.com" }), env })
       assert.equal(response.status, 200)
       assert.deepEqual(await response.json(), { success: true })
       const call = calls.at(-1)
-      assert.equal(call.url, `https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/email/sending/send`)
+      assert.equal(call.url, "https://api.resend.com/emails")
       assert.equal(call.init.headers.Authorization, "Bearer test-token")
       const payload = JSON.parse(call.init.body)
-      assert.equal(payload.to, env.INQUIRY_TO)
+      assert.deepEqual(payload.to, [env.INQUIRY_TO])
       assert.equal(payload.from, env.INQUIRY_FROM)
-      assert.equal(payload.replyTo, inquiry.email)
+      assert.equal(payload.reply_to, inquiry.email)
       for (const key of ["name", "email", "phone", "event", "date", "guests", "message"]) {
         assert.ok(payload.text.includes(inquiry[key].trim()))
       }
-    }
   })
   await t.test("invalid requests never call the email provider", async () => {
     calls = []
@@ -78,12 +76,14 @@ test("Worker inquiry endpoint", async (t) => {
     assert.equal((await onRequest({ request: request(), env: {} })).status, 503)
     assert.equal(calls.length, 0)
   })
-  await t.test("provider failures, bounces, malformed responses and network errors cannot report success", async () => {
+  await t.test("provider failures, malformed responses and network errors cannot report success", async () => {
     for (const result of [
-      Response.json({ success: false }, { status: 403 }),
-      Response.json({ success: true, result: { permanent_bounces: [env.INQUIRY_TO] } }),
-      Response.json({ success: true, result: { delivered: ["someone-else@example.com"] } }),
-      Response.json({ success: true }), new Response("not json"),
+      Response.json({ message: "Invalid API key" }, { status: 401 }),
+      Response.json({ message: "Domain is not verified" }, { status: 403 }),
+      Response.json({ message: "Rate limit exceeded" }, { status: 429 }),
+      Response.json({ id: "unexpected-id" }, { status: 500 }),
+      Response.json({}), Response.json({ id: "" }), Response.json({ id: 123 }),
+      Response.json(null), new Response("not json"),
       new Error("network unavailable"), new DOMException("Timeout", "AbortError"),
     ]) {
       apiResponse = result
