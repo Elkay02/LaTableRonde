@@ -91,7 +91,7 @@ export default async function handleInquiry({ request, env }: { request: Request
         from: INQUIRY_FROM,
         to: [INQUIRY_TO],
         reply_to: fields.email,
-        subject: "New event inquiry - La Table Ronde",
+        subject: `Event Inquiry - ${fields.name}`,
         text: [
           `Name: ${fields.name}`, `Email: ${fields.email}`, `Phone / WhatsApp: ${fields.phone}`,
           `Event type: ${fields.event || "Not specified"}`, `Event date: ${fields.date || "Not specified"}`,
