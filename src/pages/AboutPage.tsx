@@ -44,7 +44,7 @@ export default function AboutPage() {
               }}
             >
               <p>
-                La Table Ronde was founded in 2024 with a singular vision: to
+                La Table Ronde was founded in 2025 with a singular vision: to
                 elevate catering in Lebanon by blending the rich traditions of
                 Lebanese cuisine with the excitement of live culinary theatre.
               </p>

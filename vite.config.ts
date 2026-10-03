@@ -161,6 +161,7 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
               '@context': 'https://schema.org',
               '@type': 'WebSite',
               name: siteName,
+              alternateName: ['La Table Ronde', 'la-tableronde.com'],
               url: `${SITE_ORIGIN}/`,
             }).replace(/</g, '\\u003c'),
             injectTo: 'head',

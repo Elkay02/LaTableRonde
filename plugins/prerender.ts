@@ -3,7 +3,8 @@ import path from "node:path"
 import { pathToFileURL } from "node:url"
 import { build, type Plugin, type ResolvedConfig } from "vite"
 import react from "@vitejs/plugin-react"
-import { PAGE_PATHS } from "../src/data/routes"
+import { PAGE_PATHS, SITE_ORIGIN } from "../src/data/routes"
+import { getPageSeo } from "../src/data/seo"
 import type { Page } from "../src/types/navigation"
 
 /** Render the existing React pages at build time; no production server needed. */
@@ -56,10 +57,45 @@ export default function prerender(): Plugin {
         const fileName = route === "/" ? "index.html" : `${route.slice(1)}.html`
         await writeFile(
           path.join(outDir, fileName),
-          template.replace(outlet, () => `<div id="root">${render(page as Page)}</div>`),
+          withPageHead(template, page as Page, route).replace(
+            outlet,
+            () => `<div id="root">${render(page as Page)}</div>`,
+          ),
         )
       }
       config.logger.info(`Prerendered ${Object.keys(PAGE_PATHS).length} pages.`)
     },
   }
+}
+
+function escapeAttribute(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+}
+
+/** Give each prerendered page its own title, description and canonical URL. */
+function withPageHead(template: string, page: Page, route: string) {
+  const { title, description } = getPageSeo(page)
+  const url = `${SITE_ORIGIN}${route}`
+  const setMeta = (html: string, attribute: string, value: string) =>
+    html.replace(
+      new RegExp(`(<meta ${attribute} content=")[^"]*(")`),
+      (_, start: string, end: string) => `${start}${escapeAttribute(value)}${end}`,
+    )
+
+  let html = template.replace(
+    /<title>[^<]*<\/title>/,
+    () => `<title>${escapeAttribute(title)}</title>`,
+  )
+  html = setMeta(html, 'name="description"', description)
+  html = setMeta(html, 'property="og:title"', title)
+  html = setMeta(html, 'property="og:description"', description)
+  return html.replace(
+    "</head>",
+    () =>
+      `<link rel="canonical" href="${url}">\n<meta property="og:url" content="${url}">\n</head>`,
+  )
 }
