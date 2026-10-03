@@ -36,7 +36,7 @@ export default function Footer({ onNav }: NavigationProps) {
             >
               Full end-to-end catering services and live stations.
               <br />
-              Established 2024, Lebanon.
+              Established 2025, Lebanon.
             </p>
           </div>
           <div>
@@ -122,7 +122,7 @@ export default function Footer({ onNav }: NavigationProps) {
             className="font-body text-sm"
             style={{ color: "rgba(255,255,255,0.3)" }}
           >
-            © 2024 La Table Ronde. All rights reserved.
+            © 2025 La Table Ronde. All rights reserved.
           </p>
           <p
             className="font-display tracking-[0.3em] uppercase"

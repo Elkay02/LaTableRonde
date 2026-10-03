@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import usePageNavigation from "@/hooks/usePageNavigation"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
@@ -7,9 +8,19 @@ import ServicesPage from "@/pages/ServicesPage"
 import GalleryPage from "@/pages/GalleryPage"
 import ContactPage from "@/pages/ContactPage"
 import type { Page } from "@/types/navigation"
+import { getPageSeo } from "@/data/seo"
 
 export default function App({ initialPage }: { initialPage?: Page }) {
   const { page, navigate, transition } = usePageNavigation(initialPage)
+
+  useEffect(() => {
+    const { title, description } = getPageSeo(page)
+    document.title = title
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", description)
+  }, [page])
+
   return (
     <div
       id="page-scroll"

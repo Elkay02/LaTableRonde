@@ -50,6 +50,8 @@ import pansGrill4x3Focus from "@/assets/gallery/pans-grill-4x3-focus.webp"
 import pansGrill4x3FocusThumbnail from "@/assets/gallery/thumbnails/pans-grill-4x3-focus.webp"
 import pizzaOven4x3 from "@/assets/gallery/pizza-oven-4x3.webp"
 import pizzaOven4x3Thumbnail from "@/assets/gallery/thumbnails/pizza-oven-4x3.webp"
+import sorbetCone4x3 from "@/assets/gallery/sorbet-cone-4x3.webp"
+import sorbetCone4x3Thumbnail from "@/assets/gallery/thumbnails/sorbet-cone-4x3.webp"
 import stationCanopy4x3 from "@/assets/gallery/station-canopy-4x3.webp"
 import stationCanopy4x3Thumbnail from "@/assets/gallery/thumbnails/station-canopy-4x3.webp"
 import stationMountain4x3 from "@/assets/gallery/station-mountain-4x3.webp"
@@ -132,6 +134,11 @@ export const GALLERY_IMAGES = [
     src: honeyCake4x3,
     thumbnail: honeyCake4x3Thumbnail,
     alt: "Slices of layered honey cake",
+  },
+  {
+    src: sorbetCone4x3,
+    thumbnail: sorbetCone4x3Thumbnail,
+    alt: "Three scoops of sorbet in a La Table Ronde cone",
   },
   {
     src: lamb4x3FocusMedium,
