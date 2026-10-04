@@ -11,6 +11,9 @@
   --warm-white: #ffffff;
   --muted: #8a8b8d;
   --border: #e2e1de;
+  --font-display: 'Cinzel', serif;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Source Sans 3', sans-serif;
 }
 
 html,
@@ -32,7 +35,7 @@ body,
 }
 
 body {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--font-body);
   color: var(--ink);
   background: var(--cream);
 }
@@ -43,15 +46,15 @@ button:not(:disabled),
 }
 
 .font-display {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-display);
 }
 
 .font-heading {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
 }
 
 .font-body {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--font-body);
 }
 
 @theme inline {

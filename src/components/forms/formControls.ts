@@ -6,7 +6,7 @@ export const FORM_CONTROL_STYLE: CSSProperties = {
   background: "var(--cream)",
   border: "1px solid var(--border)",
   color: "var(--ink)",
-  fontFamily: "'Source Sans 3', sans-serif",
+  fontFamily: "var(--font-body)",
 }
 
 export const FORM_CONTROL_PROPS = {

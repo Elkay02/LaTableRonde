@@ -145,13 +145,11 @@ export default function ContactPage() {
               >
                 <InstagramIcon size={18} />
                 <span
-                  className="font-display tracking-[0.18em] uppercase"
+                  className="font-body text-sm"
                   style={{
                     color: "var(--ink)",
-                    fontSize: "0.65rem",
                     textDecoration: "underline",
-                    textUnderlineOffset: 4,
-                    fontWeight: 600,
+                    textUnderlineOffset: 3,
                   }}
                 >
                   @latableronde.lb
