@@ -71,7 +71,7 @@ export default function Footer({ onNav }: NavigationProps) {
               Contact
             </p>
             <div
-              className="space-y-3 font-body text-sm [&_svg]:size-[18px] [&_svg]:shrink-0"
+              className="flex flex-col items-start gap-3 font-body text-sm [&_svg]:size-[18px] [&_svg]:shrink-0"
               style={{ color: "rgba(255,255,255,0.45)" }}
             >
               <a
@@ -97,13 +97,17 @@ export default function Footer({ onNav }: NavigationProps) {
                 <span>{CONTACT.location}</span>
               </a>
               <InstagramLink
-                className="flex items-center gap-2 pt-2 transition-opacity duration-200 hover:opacity-70"
+                className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-70"
                 style={{ cursor: "pointer" }}
               >
                 <InstagramIcon size={18} />
                 <span
-                  className="font-display tracking-[0.18em] uppercase"
-                  style={{ color: "inherit", fontSize: "0.6rem" }}
+                  className="font-body text-sm"
+                  style={{
+                    color: "inherit",
+                    textDecoration: "underline",
+                    textUnderlineOffset: 3,
+                  }}
                 >
                   @latableronde.lb
                 </span>
