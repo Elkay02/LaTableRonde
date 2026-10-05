@@ -9,6 +9,17 @@ import type { Page } from "@/types/navigation"
 
 import { PAGE_PATHS, SITE_ORIGIN } from "@/data/routes"
 
+// The previous page fades out while the new one fades in slightly behind it.
+export const PAGE_FADE_OUT_MS = 1000
+export const PAGE_FADE_IN_MS = 1100
+export const PAGE_FADE_IN_DELAY_MS = 450
+const PAGE_TRANSITION_MS = Math.max(
+  PAGE_FADE_OUT_MS,
+  PAGE_FADE_IN_DELAY_MS + PAGE_FADE_IN_MS,
+)
+
+type OutgoingPage = { page: Page; scrollTop: number }
+
 // Preserve the deployment prefix used by Figma Make or a subdirectory host.
 
 const basePath = new URL(
@@ -49,38 +60,42 @@ export default function usePageNavigation(initialPage?: Page) {
 
     section: typeof window === "undefined" ? "" : window.location.hash.slice(1),
   }))
-  const [transition, setTransition] = useState<"idle" | "leaving" | "entering">(
-    "idle",
-  )
-  const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [outgoing, setOutgoing] = useState<OutgoingPage | null>(null)
+  const outgoingTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const changeLocation = useCallback(
     (next: typeof location) => {
-      if (exitTimer.current !== null) clearTimeout(exitTimer.current)
-
-      if (
-        next.page === location.page ||
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ) {
-        setTransition("idle")
+      if (next.page === location.page) {
         setLocation(next)
         return
       }
 
-      // Keep the outgoing page and its scroll position until it is fully faded.
-      setTransition("leaving")
-      exitTimer.current = setTimeout(() => {
+      if (outgoingTimer.current !== null) clearTimeout(outgoingTimer.current)
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setOutgoing(null)
         setLocation(next)
-        setTransition("entering")
-        exitTimer.current = null
-      }, 320)
+        return
+      }
+
+      // Keep the previous page on top, frozen at its scroll position, while it
+      // fades out and the destination fades in underneath.
+      setOutgoing({
+        page: location.page,
+        scrollTop: document.getElementById("page-scroll")?.scrollTop ?? 0,
+      })
+      setLocation(next)
+      outgoingTimer.current = setTimeout(() => {
+        setOutgoing(null)
+        outgoingTimer.current = null
+      }, PAGE_TRANSITION_MS)
     },
     [location.page],
   )
 
   useEffect(
     () => () => {
-      if (exitTimer.current !== null) clearTimeout(exitTimer.current)
+      if (outgoingTimer.current !== null) clearTimeout(outgoingTimer.current)
     },
     [],
   )
@@ -129,5 +144,5 @@ export default function usePageNavigation(initialPage?: Page) {
     }
   }, [changeLocation])
 
-  return { page: location.page, navigate, transition }
+  return { page: location.page, outgoing, navigate }
 }

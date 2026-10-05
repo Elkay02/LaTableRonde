@@ -9,10 +9,10 @@
     "index": true
   },
   "openGraph": {
-    "image": "https://la-tableronde.com/whatsapp-preview-v2.png",
-    "imageWidth": 1730,
-    "imageHeight": 909,
-    "imageType": "image/png",
+    "image": "https://la-tableronde.com/link-preview.jpg",
+    "imageWidth": 1200,
+    "imageHeight": 630,
+    "imageType": "image/jpeg",
     "imageAlt": "La Table Ronde logo"
   },
   "accessibility": {
