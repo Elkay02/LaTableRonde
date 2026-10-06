@@ -9,10 +9,10 @@
     "index": true
   },
   "openGraph": {
-    "image": "https://la-tableronde.com/link-preview.jpg",
+    "image": "https://la-tableronde.com/link-preview-v2.png",
     "imageWidth": 1200,
     "imageHeight": 630,
-    "imageType": "image/jpeg",
+    "imageType": "image/png",
     "imageAlt": "La Table Ronde logo"
   },
   "accessibility": {
