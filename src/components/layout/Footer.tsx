@@ -42,16 +42,16 @@ export default function Footer({ onNav }: NavigationProps) {
           <div>
             <p
               className="font-display tracking-[0.25em] uppercase mb-5"
-              style={{ color: "var(--gold)", fontSize: "0.65rem" }}
+              style={{ color: "var(--gold)", fontSize: "0.75rem", fontWeight: 600 }}
             >
               Navigation
             </p>
-            <div className="space-y-3">
+            <div className="flex flex-col items-start gap-1.5">
               {NAVIGATION_LINKS.map(({ page, label }) => (
                 <button
                   key={page}
                   onClick={() => onNav(page)}
-                  className="navigation-link block font-body text-sm"
+                  className="navigation-link font-body text-sm text-left"
                   style={
                     {
                       "--navigation-color": "rgba(255,255,255,0.45)",
@@ -66,7 +66,7 @@ export default function Footer({ onNav }: NavigationProps) {
           <div>
             <p
               className="font-display tracking-[0.25em] uppercase mb-5"
-              style={{ color: "var(--gold)", fontSize: "0.65rem" }}
+              style={{ color: "var(--gold)", fontSize: "0.75rem", fontWeight: 600 }}
             >
               Contact
             </p>
@@ -129,7 +129,7 @@ export default function Footer({ onNav }: NavigationProps) {
             © 2026 La Table Ronde. All rights reserved.
           </p>
           <p
-            className="font-display tracking-[0.3em] uppercase"
+            className="font-display tracking-[0.3em] uppercase text-center sm:text-right"
             style={{ color: "rgba(249,193,10,0.35)", fontSize: "0.55rem" }}
           >
             Lebanon's Premier Live Catering Experience

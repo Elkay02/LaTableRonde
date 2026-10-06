@@ -34,6 +34,13 @@ body,
   display: none;
 }
 
+/* EB Garamond has a small x-height (0.40); 0.42 renders body text 5% larger
+   wherever it appears without changing the declared sizes. */
+body,
+.font-body {
+  font-size-adjust: 0.42;
+}
+
 body {
   font-family: var(--font-body);
   color: var(--ink);
@@ -47,10 +54,12 @@ button:not(:disabled),
 
 .font-display {
   font-family: var(--font-display);
+  font-size-adjust: none;
 }
 
 .font-heading {
   font-family: var(--font-heading);
+  font-size-adjust: none;
 }
 
 .font-body {
@@ -209,7 +218,7 @@ button:not(:disabled),
   }
 
   .home-hero-title {
-    font-size: clamp(2rem, 7vw, 2.4rem);
+    font-size: clamp(2.5rem, 12.5vw, 3rem);
   }
 
   .home-hero-description {
