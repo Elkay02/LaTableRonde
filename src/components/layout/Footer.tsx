@@ -126,7 +126,7 @@ export default function Footer({ onNav }: NavigationProps) {
             className="font-body text-sm"
             style={{ color: "rgba(255,255,255,0.3)" }}
           >
-            © 2025 La Table Ronde. All rights reserved.
+            © 2026 La Table Ronde. All rights reserved.
           </p>
           <p
             className="font-display tracking-[0.3em] uppercase"

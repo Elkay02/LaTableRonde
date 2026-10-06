@@ -134,8 +134,12 @@ export default function ContactPage() {
             ))}
             <div>
               <p
-                className="font-display tracking-[0.18em] uppercase mb-4"
-                style={{ color: "var(--charcoal)", fontSize: "0.65rem" }}
+                className="font-display tracking-[0.3em] uppercase mb-4"
+                style={{
+                  color: "var(--gold)",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                }}
               >
                 Follow Us
               </p>

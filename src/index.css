@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
 @import 'tailwindcss';
 
 :root {
@@ -13,7 +13,7 @@
   --border: #e2e1de;
   --font-display: 'Cinzel', serif;
   --font-heading: 'Playfair Display', serif;
-  --font-body: 'Source Sans 3', sans-serif;
+  --font-body: 'EB Garamond', serif;
 }
 
 html,
@@ -169,13 +169,8 @@ button:not(:disabled),
   height: calc(64px + 6vh);
 }
 
-.home-hero-logo {
-  width: 130px;
-  height: 130px;
-}
-
 .home-hero-title {
-  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-size: clamp(2.4rem, 6vw, 5rem);
 }
 
 .home-hero-description {
@@ -213,13 +208,8 @@ button:not(:disabled),
     height: 88px;
   }
 
-  .home-hero-logo {
-    width: 80px;
-    height: 80px;
-  }
-
   .home-hero-title {
-    font-size: clamp(2.25rem, 8vw, 2.8rem);
+    font-size: clamp(2rem, 7vw, 2.4rem);
   }
 
   .home-hero-description {

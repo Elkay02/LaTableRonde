@@ -21,6 +21,12 @@ export default function ServicesPage({ onNav }: NavigationProps) {
         style={{ background: "var(--cream)" }}
       >
         <div className="max-w-4xl mx-auto">
+          <p
+            className="font-display tracking-[0.4em] uppercase mb-3"
+            style={{ color: "var(--gold)", fontSize: "0.8rem", fontWeight: 600 }}
+          >
+            Our Craft
+          </p>
           <h2
             className="font-heading mb-5"
             style={{
