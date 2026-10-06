@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { GALLERY_IMAGES } from "@/data/images"
 
+// How long each photo stays on screen, and how long the crossfade between photos lasts.
+const AUTOPLAY_INTERVAL_MS = 5500
+const FADE_DURATION_MS = 1800
+
 interface TouchPoint {
   x: number
   y: number
@@ -41,7 +45,7 @@ export default function GalleryCarousel() {
     if (timerRef.current) clearInterval(timerRef.current)
     timerRef.current = setInterval(
       () => setCurrent((c) => (c + 1) % GALLERY_IMAGES.length),
-      5000,
+      AUTOPLAY_INTERVAL_MS,
     )
   }, [reducedMotion])
 
@@ -87,7 +91,7 @@ export default function GalleryCarousel() {
     touchStart.current = null
   }
 
-  const transitionDur = reducedMotion ? "0ms" : "400ms"
+  const transitionDur = reducedMotion ? "0ms" : `${FADE_DURATION_MS}ms`
 
   return (
     <div className="gallery-carousel py-4 px-4 md:px-8">
@@ -182,7 +186,7 @@ export default function GalleryCarousel() {
                   position: "absolute",
                   inset: 0,
                   opacity: i === current ? 1 : 0,
-                  transition: `opacity ${transitionDur} ease`,
+                  transition: `opacity ${transitionDur} ease-in-out`,
                   pointerEvents: i === current ? "auto" : "none",
                 }}
               >

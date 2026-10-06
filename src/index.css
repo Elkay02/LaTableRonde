@@ -76,13 +76,20 @@ button:not(:disabled),
   }
 }
 
+/* The previous page is pinned over the new one and fades away while the new
+   page fades in. Offsets, durations and delays are set inline by App. */
 .page-transition--leaving {
-  animation: page-leave 420ms ease-in both;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: var(--cream);
   pointer-events: none;
+  animation: page-leave ease-in-out both;
 }
 
 .page-transition--entering {
-  animation: page-enter 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: page-enter ease-in-out both;
 }
 
 @keyframes page-leave {

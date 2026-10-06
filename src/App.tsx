@@ -1,5 +1,9 @@
 import { useEffect } from "react"
-import usePageNavigation from "@/hooks/usePageNavigation"
+import usePageNavigation, {
+  PAGE_FADE_IN_DELAY_MS,
+  PAGE_FADE_IN_MS,
+  PAGE_FADE_OUT_MS,
+} from "@/hooks/usePageNavigation"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import HomePage from "@/pages/HomePage"
@@ -11,7 +15,10 @@ import type { Page } from "@/types/navigation"
 import { getPageSeo } from "@/data/seo"
 
 export default function App({ initialPage }: { initialPage?: Page }) {
-  const { page, navigate, transition } = usePageNavigation(initialPage)
+  const { page, outgoing, navigate } = usePageNavigation(initialPage)
+  // While a page change crossfades, the previous page stays mounted on top.
+  const visiblePages =
+    outgoing && outgoing.page !== page ? [page, outgoing.page] : [page]
 
   useEffect(() => {
     const { title, description } = getPageSeo(page)
@@ -28,19 +35,42 @@ export default function App({ initialPage }: { initialPage?: Page }) {
       style={{ background: "var(--cream)" }}
     >
       <Navbar current={page} onNav={navigate} />
-      <div
-        key={page}
-        className={`page-transition page-transition--${transition}`}
-      >
-        <main>
-          {page === "home" && <HomePage onNav={navigate} />}
-          {page === "about" && <AboutPage />}
-          {page === "services" && <ServicesPage onNav={navigate} />}
-          {page === "gallery" && <GalleryPage />}
-          {page === "contact" && <ContactPage />}
-        </main>
-        <Footer onNav={navigate} />
-      </div>
+      {visiblePages.map((shownPage) => {
+        const leaving = shownPage !== page
+        const transition = !outgoing ? "" : leaving ? "leaving" : "entering"
+
+        return (
+          <div
+            key={shownPage}
+            className={`page-transition${transition ? ` page-transition--${transition}` : ""}`}
+            style={
+              !outgoing
+                ? undefined
+                : leaving
+                  ? {
+                      top: -outgoing.scrollTop,
+                      minHeight: `calc(100vh + ${outgoing.scrollTop}px)`,
+                      animationDuration: `${PAGE_FADE_OUT_MS}ms`,
+                    }
+                  : {
+                      animationDuration: `${PAGE_FADE_IN_MS}ms`,
+                      animationDelay: `${PAGE_FADE_IN_DELAY_MS}ms`,
+                    }
+            }
+            inert={leaving}
+            aria-hidden={leaving || undefined}
+          >
+            <main>
+              {shownPage === "home" && <HomePage onNav={navigate} />}
+              {shownPage === "about" && <AboutPage />}
+              {shownPage === "services" && <ServicesPage onNav={navigate} />}
+              {shownPage === "gallery" && <GalleryPage />}
+              {shownPage === "contact" && <ContactPage />}
+            </main>
+            <Footer onNav={navigate} />
+          </div>
+        )
+      })}
     </div>
   )
 }
