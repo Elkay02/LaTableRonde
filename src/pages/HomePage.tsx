@@ -1,4 +1,3 @@
-import logoTransparent from "@/imports/La_Table_Ronde_logo_transparent.png"
 import ActionButton from "@/components/ui/ActionButton"
 import { HOME_IMAGES, IMG } from "@/data/images"
 
@@ -32,20 +31,6 @@ export default function HomePage({ onNav }: NavigationProps) {
         <div className="home-hero-spacer" style={{ flexShrink: 0 }} />
 
         <div className="relative flex-1 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto w-full">
-          <div className="mb-4 md:mb-8">
-            <img
-              src={logoTransparent}
-              alt="La Table Ronde"
-              className="home-hero-logo"
-              style={{
-                objectFit: "contain",
-
-                display: "block",
-
-                margin: "0 auto",
-              }}
-            />
-          </div>
           <h1
             className="home-hero-title font-display tracking-[0.15em] uppercase mb-4 md:mb-6"
             style={{

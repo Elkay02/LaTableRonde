@@ -26,7 +26,7 @@ export default function GalleryPage() {
               fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
             }}
           >
-            Moments We Have Crafted
+            Moments We Have Created
           </h2>
           <GoldDivider />
           <p
